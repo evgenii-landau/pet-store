@@ -3,10 +3,6 @@ from .forms import UserLoginForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 
-# from django.contrib.auth import authenticate, login
-# from django.http import HttpResponseRedirect
-# from django.urls import reverse
-
 
 class LoginUser(LoginView):
     form_class = UserLoginForm
