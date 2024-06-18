@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from .forms import UserLoginForm
+from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 
 class LoginUser(LoginView):
@@ -13,6 +14,10 @@ class LoginUser(LoginView):
         return reverse_lazy("home")
 
 
-def register_user(request):
-    context = {}
-    return render(request, "users/register.html", context=context)
+class RegisterUser(CreateView):
+    form_class = UserRegisterForm
+    template_name = "users/register.html"
+    extra_context = {}
+
+    def get_success_url(self):
+        return reverse_lazy("users:login")
