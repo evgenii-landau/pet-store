@@ -1,11 +1,22 @@
 from django.shortcuts import render
+from .forms import UserLoginForm
+from django.contrib.auth.views import LoginView
+from django.urls import reverse_lazy
+
+# from django.contrib.auth import authenticate, login
+# from django.http import HttpResponseRedirect
+# from django.urls import reverse
 
 
-def login(request):
-    context = {}
-    return render(request, "users/login.html", context=context)
+class LoginUser(LoginView):
+    form_class = UserLoginForm
+    template_name = "users/login.html"
+    extra_context = {}
+
+    def get_success_url(self):
+        return reverse_lazy("home")
 
 
-def register(request):
+def register_user(request):
     context = {}
     return render(request, "users/register.html", context=context)
