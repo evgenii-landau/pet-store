@@ -4,6 +4,8 @@ from django.shortcuts import get_list_or_404
 
 
 def index(request):
+    """Отображение главной страницы"""
+
     context = {
         "title": "Store",
     }
@@ -11,6 +13,8 @@ def index(request):
 
 
 def products(request):
+    """Отображение товаров и категорий"""
+
     context = {
         "title": "Store - Каталог",
         "products": get_list_or_404(Product),

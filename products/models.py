@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User
+
 
 class Product(models.Model):
     name = models.CharField(max_length=128, verbose_name="Название")
@@ -18,6 +20,22 @@ class Product(models.Model):
         related_name="cat",
         verbose_name="Категория",
     )
+    user = models.ForeignKey(
+        to=User,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="user",
+        verbose_name="Пользователь",
+    )
+    basket = models.ForeignKey(
+        to="Basket",
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        related_name="basket",
+        verbose_name="Корзина",
+    )
 
     class Meta:
         db_table = "product"
@@ -25,7 +43,7 @@ class Product(models.Model):
         verbose_name_plural = "Продукты"
 
     def __str__(self):
-        return f'Продукт: {self.name} | Категория: {self.cat.name}'
+        return f"Продукт: {self.name} | Категория: {self.cat.name}"
 
 
 class ProductCategory(models.Model):
@@ -41,15 +59,10 @@ class ProductCategory(models.Model):
         return self.name
 
 
-# date_created = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
-#     date_update = models.DateField(auto_now=True, verbose_name="Дата обновления")
-#     slug = models.SlugField(
-#         max_length=150,
-#         unique=True,
-#         db_index=True,
-#         blank=True,
-#         null=True,
-#         verbose_name="URL",
-#     )
+class Basket(models.Model):
+    quantity = models.PositiveIntegerField(default=0)
+    total_price = models.BooleanField(default=0)
+    created_timestamp = models.DateTimeField(auto_now_add=True)
 
-# slug = models.SlugField(max_length=150, unique=True, db_index=True)
+    def __str__(self):
+        return self.quantity

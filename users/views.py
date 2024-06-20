@@ -1,14 +1,16 @@
-from django.shortcuts import render
-from .forms import UserLoginForm, UserRegisterForm, UserProfileForm
-from django.contrib.auth.views import LoginView
-from django.urls import reverse_lazy
-from django.views.generic import CreateView
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.contrib import messages
+from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView
+
+from .forms import UserLoginForm, UserProfileForm, UserRegisterForm
 
 
 class LoginUser(LoginView):
+    """Авторизация пользователя"""
+
     form_class = UserLoginForm
     template_name = "users/login.html"
     extra_context = {}
@@ -18,6 +20,8 @@ class LoginUser(LoginView):
 
 
 class RegisterUser(CreateView):
+    """Регистрация пользователя"""
+
     form_class = UserRegisterForm
     template_name = "users/register.html"
     extra_context = {}
@@ -32,6 +36,8 @@ class RegisterUser(CreateView):
 
 
 def profile(request):
+    """Функция для обновления профиля"""
+
     if request.method == "POST":
         form = UserProfileForm(
             instance=request.user, data=request.POST, files=request.FILES
