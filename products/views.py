@@ -99,14 +99,17 @@ def update_basket_item_quantity(request):
     return redirect("products:basket")
 
 
-def delete_bakset_item(request):
-    """Удаление продукта из корзины"""
+def delete_bakset_item(request, basket_item_id):
+    """Удаление продукта из корзины
 
-    if request.method == "POST":
-        basket_item_id = int(request.POST.get("basket_item_id"))
-        basket_item = get_object_or_404(BasketItem, pk=basket_item_id)
-        product_name = basket_item.product.name
-        basket_item.delete()
+    Args:
+        basket_item_id (int): id продукта
+    """
 
-        messages.success(request, f"Товар {product_name} был успешно удален из корзины")
-        return redirect("products:basket")
+    basket_item = get_object_or_404(BasketItem, pk=basket_item_id)
+    product_name = basket_item.product.name
+    basket_item.delete()
+
+    messages.success(request, f"Товар {product_name} был успешно удален из корзины")
+
+    return redirect("products:basket")

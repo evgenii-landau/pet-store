@@ -20,5 +20,5 @@ urlpatterns = [
         update_basket_item_quantity,
         name="update_basket_item_quantity",
     ),
-    path("basket/delete_bakset_item/", delete_bakset_item, name="delete_bakset_item"),
+    path("basket/delete_bakset_item/<int:basket_item_id>/", delete_bakset_item, name="delete_bakset_item"),
 ]
