@@ -1,5 +1,5 @@
+from django.contrib import messages
 from django.db.models import Sum
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -27,6 +27,8 @@ def products(request):
 
 
 def basket(request):
+    """Отображение товаров корзины"""
+
     user = request.user
     basket = Basket.objects.filter(user=user).first()
 
@@ -49,6 +51,12 @@ def basket(request):
 
 
 def add_basket(request, product_id):
+    """Добавление продукта в корзину
+
+    Args:
+        product_id (int): id продукта
+    """
+
     user = request.user
     product = get_object_or_404(Product, pk=product_id)
     basket, created = Basket.objects.get_or_create(user=user)
@@ -62,4 +70,43 @@ def add_basket(request, product_id):
         basket_items.total_price += product.price
         basket_items.save()
 
-    return redirect(reverse("products:basket"))
+    return redirect(reverse("products:products"))
+
+
+def update_basket_item_quantity(request):
+    """Обновление количества продукта в корзине"""
+
+    if request.method == "POST":
+        basket_item_id = request.POST.get("basket_item_id")
+        quantity = request.POST.get("quantity")
+
+        try:
+            quantity = int(quantity)
+            basket_item = BasketItem.objects.get(pk=basket_item_id)
+
+            if quantity > 0:
+                basket_item.quantity = quantity
+                basket_item.total_price = quantity * basket_item.product.price
+                basket_item.save()
+                messages.success(request, "Количество товаров было успешно обновлено")
+            else:
+                basket_item.delete()
+                messages.success(request, "Товар удален из корзины")
+
+        except (BasketItem.DoesNotExist, ValueError):
+            messages.error(request, "Ошибка при обновлении товара в корзине.")
+
+    return redirect("products:basket")
+
+
+def delete_bakset_item(request):
+    """Удаление продукта из корзины"""
+
+    if request.method == "POST":
+        basket_item_id = int(request.POST.get("basket_item_id"))
+        basket_item = get_object_or_404(BasketItem, pk=basket_item_id)
+        product_name = basket_item.product.name
+        basket_item.delete()
+
+        messages.success(request, f"Товар {product_name} был успешно удален из корзины")
+        return redirect("products:basket")
