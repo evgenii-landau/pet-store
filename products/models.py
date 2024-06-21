@@ -62,14 +62,26 @@ class Basket(models.Model):
         verbose_name = "Корзина"
         verbose_name_plural = "Корзины"
 
+    def get_all_basket_items(self):
+        return self.items.all().select_related("product")
+
+    def get_total_price(self):
+        return sum(
+            int(item.get_sum_price_items()) for item in self.get_all_basket_items()
+        )
+
 
 class BasketItem(models.Model):
-    basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE, related_name="items")
+    basket = models.ForeignKey(
+        to=Basket, on_delete=models.CASCADE, related_name="items"
+    )
     product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
 
     class Meta:
         db_table = "basket_item"
         verbose_name = "Элемент корзины"
         verbose_name_plural = "Элементы корзины"
+
+    def get_sum_price_items(self):
+        return self.quantity * self.product.price
