@@ -17,23 +17,15 @@ class Product(models.Model):
         blank=True,
         null=True,
         db_index=True,
-        related_name="cat",
+        related_name="products",
         verbose_name="Категория",
-    )
-    user = models.ForeignKey(
-        to=User,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-        related_name="user",
-        verbose_name="Пользователь",
     )
     basket = models.ForeignKey(
         to="Basket",
         on_delete=models.CASCADE,
         blank=True,
         null=True,
-        related_name="basket",
+        related_name="products",
         verbose_name="Корзина",
     )
 
@@ -60,9 +52,24 @@ class ProductCategory(models.Model):
 
 
 class Basket(models.Model):
-    quantity = models.PositiveIntegerField(default=0)
-    total_price = models.BooleanField(default=0)
-    created_timestamp = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.quantity
+        return f"Корзина пользователя: {self.user.username}"
+
+    class Meta:
+        db_table = "basket"
+        verbose_name = "Корзина"
+        verbose_name_plural = "Корзины"
+
+
+class BasketItem(models.Model):
+    basket = models.ForeignKey(to=Basket, on_delete=models.CASCADE, related_name="items")
+    product = models.ForeignKey(to=Product, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    total_price = models.DecimalField(max_digits=10, decimal_places=2)
+
+    class Meta:
+        db_table = "basket_item"
+        verbose_name = "Элемент корзины"
+        verbose_name_plural = "Элементы корзины"
