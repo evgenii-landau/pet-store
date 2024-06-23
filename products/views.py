@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from django.urls import reverse
 
@@ -14,8 +15,10 @@ def index(request):
     return render(request, "products/index.html", context=context)
 
 
-def products(request):
+def products(request, category_id):
     """Отображение товаров и категорий"""
+
+	
 
     context = {
         "title": "Store - Каталог",
@@ -30,7 +33,7 @@ def basket(request):
 
     user = request.user
     basket = Basket.objects.filter(user=user).first()
-    basket_items = basket.get_all_basket_items()
+    basket_items = basket.get_all_items()
     total_price = basket.get_total_price()
     count_items = sum(item.quantity for item in basket_items)
 
@@ -43,6 +46,7 @@ def basket(request):
     return render(request, "products/basket.html", context=context)
 
 
+@login_required
 def add_basket(request, product_id):
     """Добавление продукта в корзину
 
@@ -65,6 +69,7 @@ def add_basket(request, product_id):
     return redirect(reverse("products:products"))
 
 
+@login_required
 def update_basket_item_quantity(request):
     """Обновление количества продукта в корзине"""
 
@@ -90,6 +95,7 @@ def update_basket_item_quantity(request):
     return redirect("products:basket")
 
 
+@login_required
 def delete_bakset_item(request, basket_item_id):
     """Удаление продукта из корзины
 

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -35,6 +36,7 @@ class RegisterUser(CreateView):
         return super().form_valid(form)
 
 
+@login_required
 def profile(request):
     """Функция для обновления профиля"""
 

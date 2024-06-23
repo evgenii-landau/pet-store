@@ -39,8 +39,11 @@ class Product(models.Model):
 
 
 class ProductCategory(models.Model):
-    name = models.CharField(max_length=150)
+    name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
+    # slug = models.SlugField(
+    #     max_length=255, unique=True, db_index=True, blank=True, null=True
+    # )
 
     class Meta:
         db_table = "category"
@@ -49,6 +52,9 @@ class ProductCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_slug(self):
+        return self.slug
 
 
 class Basket(models.Model):
@@ -62,13 +68,11 @@ class Basket(models.Model):
         verbose_name = "Корзина"
         verbose_name_plural = "Корзины"
 
-    def get_all_basket_items(self):
+    def get_all_items(self):
         return self.items.all().select_related("product")
 
     def get_total_price(self):
-        return sum(
-            int(item.get_sum_price_items()) for item in self.get_all_basket_items()
-        )
+        return sum(int(item.get_sum_price_items()) for item in self.get_all_items())
 
 
 class BasketItem(models.Model):
