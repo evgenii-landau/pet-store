@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Basket, Product, ProductCategory
+from .models import Product, ProductCategory
 
 
 @admin.register(Product)
@@ -16,13 +16,11 @@ class ProductAdmin(admin.ModelAdmin):
     ]
     list_editable = ["price", "quantity", "image", "cat"]
     search_fields = ["name"]
+    ordering = ["name"]
+    list_per_page = 10
+    fields = [("name", "quantity"), "description", "price", "cat", "basket", "image"]
 
 
 @admin.register(ProductCategory)
 class ProductCategoryAdmin(admin.ModelAdmin):
-    pass
-
-
-@admin.register(Basket)
-class BasketAdmin(admin.ModelAdmin):
-    pass
+    list_display = ["name", "description"]
