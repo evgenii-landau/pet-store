@@ -1,7 +1,12 @@
+from typing import Any
+from unicodedata import category
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models.query import QuerySet
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
 from django.urls import reverse
+from django.views.generic import ListView
 
 from .models import Basket, BasketItem, Product, ProductCategory
 
@@ -15,19 +20,25 @@ def index(request):
     return render(request, "products/index.html", context=context)
 
 
-def products(request, category_id):
-    """Отображение товаров и категорий"""
+class ProductListView(ListView):
+    model = Product
+    template_name = "products/products.html"
+    context_object_name = "products"
 
-	
+    def get_queryset(self):
+        category_slug = self.kwargs.get("category_slug")
+        if category_slug:
+            return Product.objects.filter(cat__slug=category_slug)
+        return Product.objects.all()
 
-    context = {
-        "title": "Store - Каталог",
-        "products": get_list_or_404(Product),
-        "categories": get_list_or_404(ProductCategory),
-    }
-    return render(request, "products/products.html", context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = ("Store - Каталог",)
+        context["categories"] = get_list_or_404(ProductCategory)
+        return context
 
 
+@login_required
 def basket(request):
     """Отображение товаров корзины"""
 

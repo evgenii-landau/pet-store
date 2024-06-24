@@ -39,11 +39,11 @@ class Product(models.Model):
 
 
 class ProductCategory(models.Model):
-    name = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
-    # slug = models.SlugField(
-    #     max_length=255, unique=True, db_index=True, blank=True, null=True
-    # )
+    name = models.CharField(max_length=255, verbose_name="Категория")
+    description = models.TextField(null=True, blank=True, verbose_name="Описание")
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, blank=True, null=True
+    )
 
     class Meta:
         db_table = "category"
@@ -53,12 +53,11 @@ class ProductCategory(models.Model):
     def __str__(self):
         return self.name
 
-    def get_slug(self):
-        return self.slug
-
 
 class Basket(models.Model):
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        to=User, on_delete=models.CASCADE, verbose_name="Пользователь"
+    )
 
     def __str__(self):
         return f"Корзина пользователя: {self.user.username}"
