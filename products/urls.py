@@ -3,9 +3,9 @@ from django.urls import path
 from .views import (
     AddBasketView,
     BasketListView,
+    DeleteBasketItem,
     ProductListView,
     UpdateBasketItemQuntityView,
-    delete_bakset_item,
 )
 
 app_name = "products"
@@ -21,9 +21,9 @@ urlpatterns = [
         name="update_basket_item_quantity",
     ),
     path(
-        "basket/delete_bakset_item/<int:basket_item_id>/",
-        delete_bakset_item,
-        name="delete_bakset_item",
+        "basket/item/<int:pk>/delete/",
+        DeleteBasketItem.as_view(),
+        name="delete_basket_item",
     ),
     path("<slug:category_slug>/", ProductListView.as_view(), name="products"),
 ]

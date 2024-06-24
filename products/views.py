@@ -1,9 +1,11 @@
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models.base import Model as Model
+from django.http import JsonResponse
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect
+from django.urls import reverse_lazy
 from django.views import View
-from django.views.generic import ListView, TemplateView
+from django.views.generic import DeleteView, ListView, TemplateView
 
 from .models import Basket, BasketItem, Product, ProductCategory
 
@@ -136,18 +138,24 @@ class UpdateBasketItemQuntityView(LoginRequiredMixin, View):
         return redirect("products:basket")
 
 
-@login_required
-def delete_bakset_item(request, basket_item_id):
+class DeleteBasketItem(LoginRequiredMixin, DeleteView):
     """Удаление продукта из корзины
 
     Args:
         basket_item_id (int): id продукта
     """
 
-    basket_item = get_object_or_404(BasketItem, pk=basket_item_id)
-    product_name = basket_item.product.name
-    basket_item.delete()
+    model = BasketItem
+    success_url = reverse_lazy("products:basket")
 
-    messages.success(request, f"Товар {product_name} был успешно удален из корзины")
+    def get_object(self, queryset=None):
+        basket_item_id = self.kwargs["pk"]
+        basket_item = get_object_or_404(BasketItem, pk=basket_item_id)
+        return basket_item
 
-    return redirect("products:basket")
+    def delete(self, request, *args, **kwargs):
+        basket_item = self.get_object()
+        product_name = basket_item.product.name
+        basket_item.delete()
+        messages.success(request, f"Товар {product_name} был успешно удален из корзины")
+        return JsonResponse({"success": True})
