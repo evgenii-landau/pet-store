@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_list_or_404, get_object_or_404, redirect
-from django.urls import reverse
+from django.views import View
 from django.views.generic import ListView, TemplateView
 
 from .models import Basket, BasketItem, Product, ProductCategory
@@ -69,27 +69,46 @@ class BasketListView(LoginRequiredMixin, ListView):
         return context
 
 
-@login_required
-def add_basket(request, product_id):
+class AddBasketView(LoginRequiredMixin, View):
     """Добавление продукта в корзину
 
     Args:
         product_id (int): id продукта
     """
 
-    user = request.user
-    product = get_object_or_404(Product, pk=product_id)
-    basket, created = Basket.objects.get_or_create(user=user)
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        product_id = kwargs.get("product_id")
+        product = get_object_or_404(Product, pk=product_id)
+        basket, created = Basket.objects.get_or_create(user=user)
 
-    basket_items, item_created = BasketItem.objects.get_or_create(
-        basket=basket, product=product
-    )
+        basket_item, item_created = BasketItem.objects.get_or_create(
+            basket=basket,
+            product=product,
+            defaults={"quantity": 1},
+        )
 
-    if not item_created:
-        basket_items.quantity += 1
-        basket_items.save()
+        if not item_created:
+            basket_item.quantity += 1
+            basket_item.save()
 
-    return redirect(reverse("products:products"))
+        return redirect("products:products")
+
+    # def post(self, request, *args, **kwargs):
+    #     user = request.user
+    #     product_id = self.kwargs["product_id"]
+    #     product = get_object_or_404(Product, pk=product_id)
+    #     basket, created = Basket.objects.get_or_create(user=user)
+
+    #     basket_items, item_created = BasketItem.objects.get_or_create(
+    #         basket=basket, product=product
+    #     )
+
+    #     if not item_created:
+    #         basket_items.quantity += 1
+    #         basket_items.save()
+
+    #     return redirect(reverse("products:products"))
 
 
 @login_required

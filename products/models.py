@@ -86,5 +86,8 @@ class BasketItem(models.Model):
         verbose_name = "Элемент корзины"
         verbose_name_plural = "Элементы корзины"
 
+    def __str__(self):
+        return f"Элемент корзины: {self.product.name}"
+
     def get_sum_price_items(self):
         return self.quantity * self.product.price
