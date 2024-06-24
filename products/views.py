@@ -111,11 +111,10 @@ class AddBasketView(LoginRequiredMixin, View):
     #     return redirect(reverse("products:products"))
 
 
-@login_required
-def update_basket_item_quantity(request):
+class UpdateBasketItemQuntityView(LoginRequiredMixin, View):
     """Обновление количества продукта в корзине"""
 
-    if request.method == "POST":
+    def post(self, request, *args, **kwargs):
         basket_item_id = request.POST.get("basket_item_id")
         quantity = request.POST.get("quantity")
 
@@ -134,7 +133,7 @@ def update_basket_item_quantity(request):
         except (BasketItem.DoesNotExist, ValueError):
             messages.error(request, "Ошибка при обновлении товара в корзине.")
 
-    return redirect("products:basket")
+        return redirect("products:basket")
 
 
 @login_required
