@@ -1,32 +1,36 @@
-from typing import Any
-from unicodedata import category
-
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models.query import QuerySet
-from django.shortcuts import get_list_or_404, get_object_or_404, redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_list_or_404, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import ListView, TemplateView
 
 from .models import Basket, BasketItem, Product, ProductCategory
 
 
-def index(request):
+class Index(TemplateView):
     """Отображение главной страницы"""
 
-    context = {
+    template_name = "products/index.html"
+    extra_context = {
         "title": "Store",
     }
-    return render(request, "products/index.html", context=context)
 
 
 class ProductListView(ListView):
+    """Отображение продуктов
+
+    Args:
+        category_slug (str) : slug selected category
+    """
+
     model = Product
     template_name = "products/products.html"
     context_object_name = "products"
+    slug_url_kwargs = "category_slug"
 
     def get_queryset(self):
-        category_slug = self.kwargs.get("category_slug")
+        category_slug = self.kwargs.get(self.slug_url_kwargs)
         if category_slug:
             return Product.objects.filter(cat__slug=category_slug)
         return Product.objects.all()
@@ -38,23 +42,31 @@ class ProductListView(ListView):
         return context
 
 
-@login_required
-def basket(request):
+class BasketListView(LoginRequiredMixin, ListView):
     """Отображение товаров корзины"""
 
-    user = request.user
-    basket = Basket.objects.filter(user=user).first()
-    basket_items = basket.get_all_items()
-    total_price = basket.get_total_price()
-    count_items = sum(item.quantity for item in basket_items)
+    model = Basket
+    template_name = "products/basket.html"
+    context_object_name = "basket_items"
 
-    context = {
-        "basket_items": basket_items,
-        "total_price": total_price,
-        "count": count_items,
-    }
+    def get_queryset(self):
+        user = self.request.user
+        self.basket = Basket.objects.filter(user=user).first()
+        if self.basket:
+            self.basket_items = self.basket.get_all_items()
+        else:
+            self.bakset_items = []
+        return self.basket_items
 
-    return render(request, "products/basket.html", context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.basket_items:
+            context["total_price"] = self.basket.get_total_price()
+            context["count_items"] = sum(item.quantity for item in self.basket_items)
+        else:
+            context["total_price"] = 0
+            context["count_items"] = 0
+        return context
 
 
 @login_required
