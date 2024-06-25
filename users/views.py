@@ -1,10 +1,13 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
+
+from users.models import User
 
 from .forms import UserLoginForm, UserProfileForm, UserRegisterForm
 
@@ -36,19 +39,15 @@ class RegisterUser(CreateView):
         return super().form_valid(form)
 
 
-@login_required
-def profile(request):
-    """Функция для обновления профиля"""
+class ProfileView(LoginRequiredMixin, UpdateView):
+    form_class = UserProfileForm
+    template_name = "users/profile.html"
+    success_url = reverse_lazy("users:profile")
 
-    if request.method == "POST":
-        form = UserProfileForm(
-            instance=request.user, data=request.POST, files=request.FILES
-        )
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse("users:profile"))
-    else:
-        form = UserProfileForm(instance=request.user)
+    def get_object(self):
+        return self.request.user
 
-    context = {"title": "Store - Профиль", "form": form}
-    return render(request, "users/profile.html", context=context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["title"] = "Dapper"
+        return context
