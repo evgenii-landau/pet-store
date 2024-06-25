@@ -2,12 +2,32 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as Model
 from django.http import JsonResponse
-from django.shortcuts import get_list_or_404, get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView, ListView, TemplateView
 
-from .models import Basket, BasketItem, Product, ProductCategory
+from products.services.add_basket_services import (
+    get_or_create_basket_by_user,
+    get_or_create_basket_item,
+    get_product_by_product_id,
+)
+from products.services.basket_list_services import (
+    check_the_existance_of_a_cart,
+    get_basket_by_user,
+    get_total_count_items_in_basket,
+)
+from products.services.delete_basket_item_services import get_basket_item_by_id
+from products.services.product_list_services import (
+    get_all_categories,
+    get_products_by_category_slug,
+)
+from products.services.update_basket_item_quntity_services import (
+    get_busket_item_by_id,
+    update_basket_item_quantiry,
+)
+
+from .models import Basket, BasketItem, Product
 
 
 class Index(TemplateView):
@@ -20,7 +40,7 @@ class Index(TemplateView):
 
 
 class ProductListView(ListView):
-    """Отображение продуктов
+    """Отображение списка продуктов
 
     Args:
         category_slug (str) : slug selected category
@@ -33,14 +53,12 @@ class ProductListView(ListView):
 
     def get_queryset(self):
         category_slug = self.kwargs.get(self.slug_url_kwargs)
-        if category_slug:
-            return Product.objects.filter(cat__slug=category_slug)
-        return Product.objects.all()
+        return get_products_by_category_slug(category_slug)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["title"] = "Dapper"
-        context["categories"] = get_list_or_404(ProductCategory)
+        context["categories"] = get_all_categories()
         return context
 
 
@@ -53,18 +71,15 @@ class BasketListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        self.basket = Basket.objects.filter(user=user).first()
-        if self.basket:
-            self.basket_items = self.basket.get_all_items()
-        else:
-            self.bakset_items = []
+        self.basket = get_basket_by_user(user)
+        self.basket_items = check_the_existance_of_a_cart(self.basket)
         return self.basket_items
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         if self.basket_items:
-            context["total_price"] = self.basket.get_total_price()
-            context["count_items"] = sum(item.quantity for item in self.basket_items)
+            context["total_price"] = self.basket._get_total_price()
+            context["count_items"] = get_total_count_items_in_basket(self.basket_items)
         else:
             context["total_price"] = 0
             context["count_items"] = 0
@@ -81,36 +96,15 @@ class AddBasketView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         user = request.user
         product_id = kwargs.get("product_id")
-        product = get_object_or_404(Product, pk=product_id)
-        basket, created = Basket.objects.get_or_create(user=user)
-
-        basket_item, item_created = BasketItem.objects.get_or_create(
-            basket=basket,
-            product=product,
-            defaults={"quantity": 1},
-        )
+        product = get_product_by_product_id(product_id)
+        basket, created = get_or_create_basket_by_user(user)
+        basket_item, item_created = get_or_create_basket_item(basket, product)
 
         if not item_created:
             basket_item.quantity += 1
             basket_item.save()
 
         return redirect("products:products")
-
-    # def post(self, request, *args, **kwargs):
-    #     user = request.user
-    #     product_id = self.kwargs["product_id"]
-    #     product = get_object_or_404(Product, pk=product_id)
-    #     basket, created = Basket.objects.get_or_create(user=user)
-
-    #     basket_items, item_created = BasketItem.objects.get_or_create(
-    #         basket=basket, product=product
-    #     )
-
-    #     if not item_created:
-    #         basket_items.quantity += 1
-    #         basket_items.save()
-
-    #     return redirect(reverse("products:products"))
 
 
 class UpdateBasketItemQuntityView(LoginRequiredMixin, View):
@@ -120,20 +114,13 @@ class UpdateBasketItemQuntityView(LoginRequiredMixin, View):
         basket_item_id = request.POST.get("basket_item_id")
         quantity = request.POST.get("quantity")
 
-        try:
-            quantity = int(quantity)
-            basket_item = BasketItem.objects.get(pk=basket_item_id)
+        basket_item = get_busket_item_by_id(basket_item_id)
+        success, message = update_basket_item_quantiry(basket_item, quantity)
 
-            if quantity > 0:
-                basket_item.quantity = quantity
-                basket_item.save()
-                messages.success(request, "Количество товаров было успешно обновлено")
-            else:
-                basket_item.delete()
-                messages.success(request, "Товар удален из корзины")
-
-        except (BasketItem.DoesNotExist, ValueError):
-            messages.error(request, "Ошибка при обновлении товара в корзине.")
+        if success:
+            messages.success(request, message)
+        else:
+            messages.error(request, message)
 
         return redirect("products:basket")
 
@@ -150,8 +137,7 @@ class DeleteBasketItem(LoginRequiredMixin, DeleteView):
 
     def get_object(self, queryset=None):
         basket_item_id = self.kwargs["pk"]
-        basket_item = get_object_or_404(BasketItem, pk=basket_item_id)
-        return basket_item
+        return get_basket_item_by_id(basket_item_id)
 
     def delete(self, request, *args, **kwargs):
         basket_item = self.get_object()

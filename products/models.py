@@ -67,11 +67,11 @@ class Basket(models.Model):
         verbose_name = "Корзина"
         verbose_name_plural = "Корзины"
 
-    def get_all_items(self):
+    def _get_all_items(self):
         return self.items.all().select_related("product")
 
-    def get_total_price(self):
-        return sum(int(item.get_sum_price_items()) for item in self.get_all_items())
+    def _get_total_price(self):
+        return sum(int(item.get_sum_price_items()) for item in self._get_all_items())
 
 
 class BasketItem(models.Model):
