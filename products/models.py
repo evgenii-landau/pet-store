@@ -28,6 +28,12 @@ class Product(models.Model):
         related_name="products",
         verbose_name="Корзина",
     )
+    gend = models.ManyToManyField(
+        to="ProductGender",
+        blank=True,
+        related_name="products",
+        verbose_name="Гендер для продукта",
+    )
 
     class Meta:
         db_table = "product"
@@ -41,9 +47,7 @@ class Product(models.Model):
 class ProductCategory(models.Model):
     name = models.CharField(max_length=255, verbose_name="Категория")
     description = models.TextField(null=True, blank=True, verbose_name="Описание")
-    slug = models.SlugField(
-        max_length=255, unique=True, db_index=True, blank=True, null=True
-    )
+    slug = models.SlugField(max_length=255, unique=True, db_index=True)
 
     class Meta:
         db_table = "category"
@@ -91,3 +95,18 @@ class BasketItem(models.Model):
 
     def get_sum_price_items(self):
         return self.quantity * self.product.price
+
+
+class ProductGender(models.Model):
+    gender = models.CharField(max_length=100, db_index=True, verbose_name="Гендер")
+    slug = models.SlugField(
+        max_length=255, unique=True, db_index=True, verbose_name="URL"
+    )
+
+    class Meta:
+        db_table = "product_gender"
+        verbose_name = "Гендер у продукта"
+        verbose_name_plural = "Гендер у продуктов"
+
+    def __str__(self):
+        return f"Гендер: {self.gender}"

@@ -1,22 +1,7 @@
 from typing import Literal, Union
 
-from products.models import BasketItem
 
-
-def get_busket_item_by_id(pk: int) -> BasketItem:
-    """Получение элемента корзины по id
-
-    Args:
-        pk (int): pk элемента корзины
-
-    Returns:
-        BasketItem: _description_
-    """
-
-    return BasketItem.objects.get(pk=pk)
-
-
-def update_basket_item_quantiry(basket_item: object, quantity: int) -> Union[
+def update_basket_item_quantity(basket_item: object, quantity: int) -> Union[
     tuple[Literal[True], Literal["Количество товаров было успешно обновлено"]],
     tuple[Literal[True], Literal["Товар удален из корзины"]],
     tuple[Literal[False], Literal["Ошибка при обновлении товара в корзине."]],
@@ -32,7 +17,7 @@ def update_basket_item_quantiry(basket_item: object, quantity: int) -> Union[
             - bool: Результат операции ('True' в случае успешного обновления или удаления, 'False' в случае ошибки)
             - str: Сообщение об операции (описание результата операции: успешное обновление количества, успешное удаление из корзины или сообщение об ошибке)
     """
-    
+
     try:
         quantity = int(quantity)
         if quantity > 0:

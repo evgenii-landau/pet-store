@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as Model
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView, ListView, TemplateView
@@ -17,14 +17,13 @@ from products.services.basket_list_services import (
     get_basket_by_user,
     get_total_count_items_in_basket,
 )
-from products.services.delete_basket_item_services import get_basket_item_by_id
 from products.services.product_list_services import (
     get_all_categories,
     get_products_by_category_slug,
 )
+from products.services.services import get_basket_item_by_id
 from products.services.update_basket_item_quntity_services import (
-    get_busket_item_by_id,
-    update_basket_item_quantiry,
+    update_basket_item_quantity,
 )
 
 from .models import Basket, BasketItem, Product
@@ -107,15 +106,15 @@ class AddBasketView(LoginRequiredMixin, View):
         return redirect("products:products")
 
 
-class UpdateBasketItemQuntityView(LoginRequiredMixin, View):
+class UpdateBasketItemQuantityView(LoginRequiredMixin, View):
     """Обновление количества продукта в корзине"""
 
     def post(self, request, *args, **kwargs):
         basket_item_id = request.POST.get("basket_item_id")
         quantity = request.POST.get("quantity")
 
-        basket_item = get_busket_item_by_id(basket_item_id)
-        success, message = update_basket_item_quantiry(basket_item, quantity)
+        basket_item = get_basket_item_by_id(basket_item_id)
+        success, message = update_basket_item_quantity(basket_item, quantity)
 
         if success:
             messages.success(request, message)

@@ -5,7 +5,7 @@ from .views import (
     BasketListView,
     DeleteBasketItem,
     ProductListView,
-    UpdateBasketItemQuntityView,
+    UpdateBasketItemQuantityView,
 )
 
 app_name = "products"
@@ -17,7 +17,7 @@ urlpatterns = [
     path("basket/add/<int:product_id>/", AddBasketView.as_view(), name="add_basket"),
     path(
         "basket/update_basket_item_quantity/",
-        UpdateBasketItemQuntityView.as_view(),
+        UpdateBasketItemQuantityView.as_view(),
         name="update_basket_item_quantity",
     ),
     path(
