@@ -1,19 +1,449 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
 body {
-    background: url("../img/wallpaper.jpg") no-repeat center top fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-    padding-top: 56px;
+	margin: 0px;
+	padding: 0px;
+	font-family: "Josefin Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	-o-background-size: cover;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1400px;
+}
+
+p {
+	margin: 0px;
+}
+
+a {
+	border: none;
+	outline: none;
+	text-decoration: none;
+	color: #fff;
+}
+
+button {
+	border: none;
+	outline: none;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+input {
+	outline: none;
 }
 
 #start-purchase-btn {
-    background-color: #23364e;
-    border-color: #23364e;
-    color: white;
+	background-color: #23364e;
+	border-color: #23364e;
+	color: white;
 }
 
 #start-purchase-link {
-    text-decoration: none;
-    color: white;
+	text-decoration: none;
+	color: white;
 }
+
+/* nav-bar  */
+.navbar {
+	padding: 0px 30px;
+	background-color: #2d2d2d;
+}
+
+.navbar-wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.logo {
+	margin-right: 30px;
+}
+
+.gender {
+	display: flex;
+	gap: 20px;
+}
+
+.gender-link {
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.categories {
+	padding: 20px 0px;
+	background-color: #525050;
+}
+
+.categories-list {
+	display: flex;
+	gap: 30px;
+	justify-content: center;
+}
+
+.category-link {
+	font-size: 16px;
+}
+
+.nav-icon-section {
+	display: flex;
+	gap: 20px;
+}
+/* nav-bar end */
+
+/* section sale one */
+.sale {
+	margin: 0 auto;
+	padding: 24px 0px;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.sale-gradient-one {
+	background-blend-mode: screen;
+	background: linear-gradient(limegreen, transparent), linear-gradient(90deg, skyblue, transparent),
+		linear-gradient(-90deg, coral, transparent);
+}
+
+.sale-banner {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.sale-button-wrapper {
+	width: 150px;
+	padding: 15px 10px;
+	text-align: center;
+	margin-bottom: 12px;
+	background-color: #fff;
+	border-radius: 20px;
+}
+
+.sale-button-wrapper > button {
+	border: none;
+	background-color: transparent;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.sale-bold-text {
+	font-family: futura-pt, FuturaStd, Helvetica, Arial, sans-serif;
+	font-size: 55px;
+	font-weight: 900;
+	font-style: italic;
+}
+
+.sale-regular-text {
+	font-family: futura-pt, FuturaStd, Helvetica, Arial, sans-serif;
+	font-size: 30px;
+	letter-spacing: 1.2px;
+	font-weight: 700;
+	line-height: 44px;
+}
+
+.promocode-wrapper {
+	display: flex;
+	gap: 20px;
+}
+
+.promocode {
+	display: flex;
+	align-items: center;
+	border: 2px solid black;
+	padding: 10px 20px;
+}
+/* section sale end */
+
+/* section-sale two */
+.sale-gradien-two {
+	background-blend-mode: screen;
+	background: linear-gradient(to bottom, transparent, limegreen), linear-gradient(90deg, skyblue, transparent),
+		linear-gradient(-90deg, coral, transparent);
+}
+
+.sale-wrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 30px;
+}
+
+.sale-list {
+	display: flex;
+	gap: 30px;
+}
+
+.sale-link > img {
+	width: 100%;
+	margin-bottom: -4px;
+}
+
+.sale-link > a {
+	display: flex;
+	justify-content: center;
+	padding: 15px;
+	background-color: #fff;
+	font-weight: 700;
+	color: black;
+}
+
+.name-sale-link {
+	color: black;
+}
+/* section-sale end */
+
+/* btn section sale  */
+.sale-btn {
+	background-color: transparent;
+	border: 2px solid #000;
+	border-radius: 0;
+	box-sizing: border-box;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	float: right;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	margin: 0;
+	outline: none;
+	overflow: visible;
+	padding: 1.25em 2em;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	text-transform: none;
+	transition: all 0.3s ease-in-out;
+	user-select: none;
+	font-size: 13px;
+}
+
+.sale-btn::before {
+	content: " ";
+	width: 1.5625rem;
+	height: 2px;
+	background: black;
+	top: 50%;
+	left: 1.5em;
+	position: absolute;
+	transform: translateY(-50%);
+	transform-origin: center;
+	transition:
+		background 0.3s linear,
+		width 0.3s linear;
+}
+
+.sale-btn .text {
+	font-size: 1.125em;
+	line-height: 1.33333em;
+	padding-left: 2em;
+	display: block;
+	text-align: left;
+	transition: all 0.3s ease-in-out;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: black;
+}
+
+.sale-btn .top-key {
+	height: 2px;
+	width: 1.5625rem;
+	top: -2px;
+	left: 0.625rem;
+	position: absolute;
+	background: #fff;
+	transition:
+		width 0.5s ease-out,
+		left 0.3s ease-out;
+}
+
+.sale-btn .bottom-key-1 {
+	height: 2px;
+	width: 1.5625rem;
+	right: 1.875rem;
+	bottom: -2px;
+	position: absolute;
+	background: #fff;
+	transition:
+		width 0.5s ease-out,
+		right 0.3s ease-out;
+}
+
+.sale-btn .bottom-key-2 {
+	height: 2px;
+	width: 0.625rem;
+	right: 0.625rem;
+	bottom: -2px;
+	position: absolute;
+	background: #fff;
+	transition:
+		width 0.5s ease-out,
+		right 0.3s ease-out;
+}
+
+.sale-btn:hover {
+	color: white;
+	background: black;
+}
+
+.sale-btn:hover::before {
+	width: 0.9375rem;
+	background: white;
+}
+
+.sale-btn:hover .text {
+	color: white;
+	padding-left: 1.5em;
+}
+
+.sale-btn:hover .top-key {
+	left: -2px;
+	width: 0px;
+}
+
+.sale-btn:hover .bottom-key-1,
+.sale-btn:hover .bottom-key-2 {
+	right: 0;
+	width: 0;
+}
+/* btn section sale end */
+
+/* hero section */
+.hero {
+	padding: 40px 0px;
+	position: relative;
+}
+
+.hero-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.hero-wrapper > p {
+	padding: 15px 40px;
+	position: absolute;
+	top: 70%;
+	left: 39%;
+	font-size: 35px;
+	font-weight: 700;
+	background-color: #fff;
+}
+/* hero section end  */
+
+/* collage section */
+.collage-wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.collage-list {
+	display: flex;
+	gap: 20px;
+}
+
+.collage-item {
+	display: flex;
+	gap: 20px;
+	flex-direction: column;
+	align-items: center;
+}
+
+.collage-img {
+	max-width: 300px;
+}
+
+.collage-title {
+	font-weight: 700;
+}
+/* collage section end  */
+
+/* slider section */
+.slider {
+	display: flex;
+	padding: 40px 0px;
+	flex-direction: column;
+}
+
+.slider-container {
+	position: relative;
+	width: 80%;
+	margin: auto;
+	overflow: hidden;
+}
+
+.slider-list {
+	display: flex;
+	transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+	min-width: 25%;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.slide img {
+	width: 100%;
+	height: auto;
+}
+
+.prev,
+.next {
+	cursor: pointer;
+	position: absolute;
+	top: 50%;
+	width: auto;
+	margin-top: -22px;
+	padding: 16px;
+	color: white;
+	font-weight: bold;
+	font-size: 18px;
+	transition: 0.6s ease;
+	border-radius: 0 3px 3px 0;
+	user-select: none;
+}
+
+.next {
+	right: 0;
+	border-radius: 3px 0 0 3px;
+}
+
+.prev:hover,
+.next:hover {
+	background-color: rgba(0, 0, 0, 0.8);
+}
+
+.pagination {
+	text-align: center;
+	padding: 10px 0;
+}
+
+.pagination .dot {
+	cursor: pointer;
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbb;
+	border-radius: 50%;
+	display: inline-block;
+	transition: background-color 0.6s ease;
+}
+
+.pagination .dot.active {
+	background-color: #717171;
+}
+/* slider section end */

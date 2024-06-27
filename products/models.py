@@ -110,3 +110,6 @@ class ProductGender(models.Model):
 
     def __str__(self):
         return f"Гендер: {self.gender}"
+
+    def get_absolute_url(self):
+        return reverse("", kwargs={"pk": self.pk})

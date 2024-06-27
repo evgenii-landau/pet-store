@@ -6,24 +6,203 @@
 {% endblock  %}
 
 {% block content %}
-	<section>
 		<!--    <div class="alert alert-light text-center" role="alert">-->
 		<!--        Информационное сообщение-->
 		<!--    </div>-->
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-6 d-flex flex-column">
-					<h4 class="mt-5 width=100%">
-						Добро пожаловать в мир стиля и элегантности – мир, где каждая деталь одежды вдохновляет на создание истинного образа. 
-						Наш магазин предлагает вам уникальную возможность обрести не просто одежду, а настоящий стильный акцент. Здесь каждая коллекция отражает современные тенденции и самобытность, подчеркивая вашу индивидуальность и вкус. Вдохновляйтесь и выбирайте смело – вместе мы создадим ваш неповторимый образ, в котором вы будете ощущать себя уверенно и стильно в любой ситуации.
-					</h4>
-					<button id="start-purchase-btn" type="button" class="btn btn-lg">
-						<a id="start-purchase-link" href="{% url 'products:products' %}">
-							Начать покупки
-						</a>
-					</button>
+		<section class="sale sale-gradient-one">
+			<div class="sale-banner">
+				<div class="sale-button-wrapper">
+					<button>SALE</button>
+				</div>
+				<p class="sale-bold-text">EXTRA 20% OFF</p>
+				<p class="sale-bold-text">SELECTED STYLES</p>
+				<p class="sale-regular-text">Already up to 70% off</p>
+				<div class="promocode-wrapper">
+					<p class="sale-regular-text">
+						With code: 
+					</p>
+					<div class="promocode">DROP</div>
 				</div>
 			</div>
-		</div>
-	</section>
+		</section>
+
+		<section class="sale sale-gradien-two">
+			<div class="container">
+				<div class="sale-wrapper">
+					<ul class="sale-list">
+						<li class="sale-link">
+							<img src="{% static 'vendor/img/sale_img_men/bestsellers_men.webp' %}" alt="bestseller">
+							<a href="#" class="name-sale-link">
+								BESTSELLER
+							</a>
+						</li>
+						<li class="sale-link">
+							<img src="{% static 'vendor/img/sale_img_men/shirts_men.webp' %}" alt="SHIRTS">
+								<a href="#" class="name-sale-link">
+									SHIRTS
+								</a>
+						</li>
+						<li class="sale-link">
+							<img src="{% static 'vendor/img/sale_img_men/shoes_and_sneakers_men.webp' %}" alt="SHOES & SNEAKERS">
+								<a href="#" class="name-sale-link">
+									SHOES & SNEAKERS
+								</a>
+						</li>
+						<li class="sale-link">
+							<img src="{% static 'vendor/img/sale_img_men/shorts_men.webp' %}" alt="bestseller">
+								<a href="#" class="name-sale-link">
+									SHORTS
+								</a>
+						</li>
+						<li class="sale-link">
+							<img src="{% static 'vendor/img/sale_img_men/tees_men.webp' %}" alt="bestseller">
+								<a href="#" class="name-sale-link">
+									TEES
+								</a>
+						</li>
+						<li class="sale-link">
+							<img src="{% static 'vendor/img/sale_img_men/biggest_deals_men.webp' %}" alt="bestseller">
+								<a href="#" class="name-sale-link">
+									BIGGEST DEALS
+								</a>
+						</li>
+					</ul>
+					<a class="sale-btn" href="#">
+						<span class="top-key"></span>
+						<span class="text">View All</span>
+						<span class="bottom-key-1"></span>
+						<span class="bottom-key-2"></span>
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="hero">
+			<div class="container">
+				<div class="hero-wrapper">
+					<img src="{% static 'vendor/img/hero.avif' %}" alt="hero">
+					<p>Shop linen looks</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="callage">
+			<div class="container">
+				<div class="collage-wrapper">
+					<ul class="collage-list">
+						<li class="collage-item">
+							<img src="{% static 'vendor/img/collage/sunshine_serves.jpeg' %}" alt="collage_img" class="collage-img">
+							<p class="collage-title">SUNSHINE SERVES</p>
+							<p class="collage-desc">These beach 'fits? Unreal</p>
+						</li>
+						<li class="collage-item">
+							<img src="{% static 'vendor/img/collage/summer_grunge.jpeg' %}" alt="collage_img" class="collage-img">
+							<p class="collage-title">SUMMER GRUNGE</p>
+							<p class="collage-desc">Catch a vibe</p>
+						</li>
+						<li class="collage-item">
+							<img src="{% static 'vendor/img/collage/on.jpeg' %}" alt="collage_img" class="collage-img">
+							<p class="collage-title">ON</p>
+							<p class="collage-desc">Sneaker game: on point</p>
+						</li>
+						<li class="collage-item">
+							<img src="{% static 'vendor/img/collage/city_boy_serves.jpeg' %}" alt="collage_img" class="collage-img">
+							<p class="collage-title">CITY-BOY SERVES</p>
+							<p class="collage-desc">In the streets</p>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="slider">
+			<div class="slider-container">
+				<ul class="slider-list" id="slider">
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-1.webp' %}" alt="Product 1">
+						<h3>Product 1</h3>
+						<p>$10.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-2.webp' %}" alt="Product 2">
+						<h3>Product 2</h3>
+						<p>$20.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-3.webp' %}" alt="Product 3">
+						<h3>Product 3</h3>
+						<p>$30.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-4.webp' %}" alt="Product 4">
+						<h3>Product 4</h3>
+						<p>$40.00</p>
+					</li>
+					<!-- Slide 2 -->
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-5.webp' %}" alt="Product 5">
+						<h3>Product 5</h3>
+						<p>$50.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-6.webp' %}" alt="Product 6">
+						<h3>Product 6</h3>
+						<p>$60.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-7.webp' %}" alt="Product 7">
+						<h3>Product 7</h3>
+						<p>$70.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-8.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-9.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-10.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-11.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-12.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-13.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-14.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-15.webp' %}" alt="Product 8">
+						<h3>Product 8</h3>
+						<p>$80.00</p>
+					</li>
+					<li class="slide">
+						<img src="{% static 'vendor/img/slider/slider-1.webp' %}" alt="Product 1">
+						<h3>Product 1</h3>
+						<p>$10.00</p>
+					</li>
+				</ul>
+				<button class="prev" onclick="prevSlide()">&#10094;</button>
+				<button class="next" onclick="nextSlide()">&#10095;</button>
+			</div>
+			<div class="pagination" id="pagination"></div>
+		</section>
 {% endblock  %}

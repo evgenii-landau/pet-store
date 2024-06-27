@@ -25,5 +25,10 @@ urlpatterns = [
         DeleteBasketItem.as_view(),
         name="delete_basket_item",
     ),
-    path("<slug:category_slug>/", ProductListView.as_view(), name="products"),
+    path("<slug:gender_slug>/", ProductListView.as_view(), name="products"),
+    path("<slug:gender_slug>/<slug:category_slug>/", ProductListView.as_view(), name="products"),
 ]
+
+# /products/
+# /products/man/
+# /products/man/shoes/

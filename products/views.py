@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -33,16 +34,14 @@ class Index(TemplateView):
     """Отображение главной страницы"""
 
     template_name = "products/index.html"
-    extra_context = {
-        "title": "Dapper",
-    }
+    extra_context = {"title": "Dapper", "categories": get_all_categories()}
 
 
 class ProductListView(ListView):
     """Отображение списка продуктов
 
     Args:
-        category_slug (str) : slug selected category
+        category_slug (str) : Слаг выбранной категории
     """
 
     model = Product
@@ -144,3 +143,20 @@ class DeleteBasketItem(LoginRequiredMixin, DeleteView):
         basket_item.delete()
         messages.success(request, f"Товар {product_name} был успешно удален из корзины")
         return JsonResponse({"success": True})
+
+
+# class GenderListView(LoginRequiredMixin, ListView):
+#     model = ProductGender
+#     template_name = "products/products.html"
+#     context_object_name = "genders"
+
+#     def get_queryset(self):
+#         queryset = super().get_queryset()
+#         return queryset
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context["title"] = "Dapper"
+#         context["categories"] = get_all_categories()
+#         context["products"] = Product.objects.all()
+#         return context
