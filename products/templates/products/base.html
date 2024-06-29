@@ -12,10 +12,9 @@
 
     <title>{{ title }}</title>
 
-    <!-- Bootstrap core CSS -->
-    {% comment %} <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"> {% endcomment %}
 
     <!-- Custom styles for this template -->
+	<link rel="stylesheet" href="{% static 'vendor/css/base.css' %}">
 	<link rel="stylesheet" href="{% static 'vendor/css/drop-down.css' %}">
 	<link rel="stylesheet" href="{% static 'vendor/css/search.css' %}">
 	<link rel="stylesheet" href="{% static 'vendor/css/index.css' %}">
@@ -50,7 +49,7 @@
 				<!--End Search-->
 	
 				<div class="nav-icon-section">
-					<div class="drop-down-prodfile">
+					{% comment %} <div class="drop-down-prodfile">
 						<div class="paste-button">
 							<a href="{% url 'users:profile' %}">
 								<img src="{% static 'vendor/img/navbar/profile.svg' %}" width="25xp" alt="profile">
@@ -64,7 +63,42 @@
 								<a href="#">My Order</a>
 							</div>
 						</div>
-					</div> 
+					</div>  {% endcomment %}
+
+					<!--PopUp-->
+					<div class="popup">
+						<div id="popupButton" class="popup-button">
+							<img src="{% static 'vendor/img/navbar/profile.svg' %}" width="25xp" alt="profile">
+						</div>
+						<div id="popupPanel" class="popup-panel">
+							<div class="popup-top">
+								<a href="{% url 'users:login' %}">Sign In</a>
+								<a href="{% url 'users:register' %}">Join</a>
+							</div>
+							<ul class="popup-list">
+								<a href="{% url 'users:profile' %}">My account</a>
+								<a href="#">My orders</a>
+							</ul>
+						</div>
+					</div>
+					{% comment %} <div class="popup">
+						<div class="burger">
+							<img src="{% static 'vendor/img/navbar/profile.svg' %}" width="25xp" alt="profile">
+						</div>
+						<div class="popup-window">
+							<ul class="popup-window-list">
+								<li class="popup-window-item">
+									<div>
+										<a href="#">Sign In</a>
+										|
+										<a href="#">Join</a>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div> {% endcomment %}
+					<!--PopUp End-->
+
 	
 					<a href="">
 						<img src="{% static 'vendor/img/navbar/like.svg' %}" width="25xp" alt="like">
@@ -239,20 +273,14 @@
 	{% block content %}{% endblock  %}
 	{% block footer %}{% endblock %}
 
-<!-- Bootstrap core JavaScript -->
-<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-        crossorigin="anonymous"></script>
-
-<!-- FontAwesome script -->
-<script src="{% static 'vendor/fontawesome/fontawesome-icons.js' %}" crossorigin="anonymous"></script>
-
 <!-- Time for success messages -->
 <script src="{% static 'vendor/js/time.js' %}"></script>
+<!-- DropDown -->
 <script src="{% static 'vendor/js/drop-down.js' %}"></script>
+<!-- Slider -->
 <script src="{% static 'vendor/js/slider.js' %}"></script>
+<!-- Popup -->
+<script src="{% static 'vendor/js/popup.js' %}"></script>
 </body>
 
 </html>

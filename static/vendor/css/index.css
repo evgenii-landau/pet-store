@@ -55,56 +55,6 @@ input {
 	color: white;
 }
 
-/* nav-bar  */
-.navbar {
-	padding: 0px 30px;
-	background-color: #2d2d2d;
-}
-
-.navbar-wrapper {
-	display: flex;
-	align-items: center;
-}
-
-.logo {
-	margin-right: 30px;
-}
-
-.gender {
-	display: flex;
-	gap: 20px;
-}
-
-.gender-link {
-	font-size: 20px;
-	font-weight: 600;
-}
-
-.categories {
-	padding: 20px 0px;
-	background-color: #525050;
-}
-
-.categories-list {
-	display: flex;
-	gap: 30px;
-	justify-content: center;
-}
-
-.category-link {
-	font-size: 16px;
-}
-
-.category-link:hover {
-	color: #85e5d4;
-}
-
-.nav-icon-section {
-	display: flex;
-	gap: 20px;
-}
-/* nav-bar end */
-
 /* section sale one */
 .sale {
 	margin: 0 auto;
