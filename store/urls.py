@@ -7,7 +7,8 @@ from products.views import Index
 
 urlpatterns = [
     path("admin/", admin.site.urls, name="admin"),
-    path("", Index.as_view(), name="home"),
+    path("men/", Index.as_view(), name="home_men"),
+    path("women/", Index.as_view(), name="home_women"),
     path("products/", include("products.urls", namespace="products")),
     path("users/", include("users.urls", namespace="users")),
 ]

@@ -1,4 +1,4 @@
-footer_data = {
+data = {
     "help_information": ["Help", "Track order", "Delivery & returns", "Sitemap"],
     "about": [
         "About us",

@@ -55,6 +55,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "products.context_processors.current_url",
             ],
         },
     },
@@ -70,10 +71,10 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "AppStore",
-		"USER": "root",
-		"PASSWORD": "root",
-		"HOST": "localhost",
-		"PORT": "5433" 
+        "USER": "root",
+        "PASSWORD": "root",
+        "HOST": "localhost",
+        "PORT": "5433",
     }
 }
 

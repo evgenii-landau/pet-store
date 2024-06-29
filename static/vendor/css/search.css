@@ -19,6 +19,7 @@
 	background-color: #f3f3f4;
 	color: #0d0c22;
 	transition: 0.3s ease;
+	font-size: 16px;
 }
 
 .input::placeholder {

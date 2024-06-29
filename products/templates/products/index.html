@@ -1,8 +1,9 @@
 {% extends "products/base.html" %}
 {% load static %}
+{% load products_tags %}
 
 {% block css %}
-	<link href="{% static 'vendor/css/index.css' %}" rel="stylesheet">
+	<link rel="stylesheet" href="{% static 'vendor/css/index.css' %}">
 {% endblock  %}
 
 {% block content %}
@@ -30,42 +31,35 @@
 			<div class="container">
 				<div class="sale-wrapper">
 					<ul class="sale-list">
-						<li class="sale-link">
-							<img src="{% static 'vendor/img/sale_img_men/bestsellers_men.webp' %}" alt="bestseller">
-							<a href="#" class="name-sale-link">
-								BESTSELLER
-							</a>
-						</li>
-						<li class="sale-link">
-							<img src="{% static 'vendor/img/sale_img_men/shirts_men.webp' %}" alt="SHIRTS">
+						{% if "men" in current_url %}
+							{% for item in sale_data.men %}
+								<li class="sale-link">
+									<img src="{% static item.img %}" alt="bestseller">
+									<a href="#" class="name-sale-link">
+										{{ item.title }}
+									</a>
+								</li>
+							{% endfor %}
+						{% elif "women" in current_url %}
+							{% for item in sale_data.women %}
+								<li class="sale-link">
+									<img src="{% static item.img %}" alt="bestseller">
+									<a href="#" class="name-sale-link">
+										{{ item.title }}
+									</a>
+								</li>
+							{% endfor %}
+						{% else %}
+							<p>No items found.</p>
+						{% endif %}
+						{% comment %} {% for item in {% if get_absolute_url.include("men") %} sale_data.men {% endif %} %}
+							<li class="sale-link">
+								<img src="{% static item.img %}" alt="bestseller">
 								<a href="#" class="name-sale-link">
-									SHIRTS
+									{{ item.title }}
 								</a>
-						</li>
-						<li class="sale-link">
-							<img src="{% static 'vendor/img/sale_img_men/shoes_and_sneakers_men.webp' %}" alt="SHOES & SNEAKERS">
-								<a href="#" class="name-sale-link">
-									SHOES & SNEAKERS
-								</a>
-						</li>
-						<li class="sale-link">
-							<img src="{% static 'vendor/img/sale_img_men/shorts_men.webp' %}" alt="bestseller">
-								<a href="#" class="name-sale-link">
-									SHORTS
-								</a>
-						</li>
-						<li class="sale-link">
-							<img src="{% static 'vendor/img/sale_img_men/tees_men.webp' %}" alt="bestseller">
-								<a href="#" class="name-sale-link">
-									TEES
-								</a>
-						</li>
-						<li class="sale-link">
-							<img src="{% static 'vendor/img/sale_img_men/biggest_deals_men.webp' %}" alt="bestseller">
-								<a href="#" class="name-sale-link">
-									BIGGEST DEALS
-								</a>
-						</li>
+							</li>
+						{% endfor %} {% endcomment %}
 					</ul>
 					<a class="sale-btn" href="#">
 						<span class="top-key"></span>
@@ -132,66 +126,8 @@
 				</div>
 			</div>
 		</section>
-
-		<section class="footer">
-			<div class="container">
-				<div class="footer-wrapper">
-					<div class="footer-column-1">
-						<h4>Help & Information</h4>
-						<ul class="footer-list">
-							{% for item in footer_data.help_information %}
-								<li class="footer-item">{{ item }}</li>
-							{% endfor %}
-						</ul>
-					</div>
-					<div class="footer-column-2">
-						<h4>About Suer Street</h4>
-						<ul class="footer-list">
-							{% for item in footer_data.about %}
-								<li class="footer-item">{{ item }}</li>
-							{% endfor %}
-						</ul>
-					</div>
-					<div class="footer-column-3">
-						<h4>More From Super Street</h4>
-						<ul class="footer-list">
-							{% for item in footer_data.more %}
-								<li class="footer-item">{{ item }}</li>
-							{% endfor %}
-						</ul>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="copyright">
-			<div class="container">
-				<div class="copytirght-wrapper">
-					<div>
-						<p>
-							© 2024 Super Street
-						</p>
-					</div>
-					<div>
-						<ul class="copyrirght-list">
-							<li class="cpoyright-item">
-								Super Street details
-							</li>
-							|
-							<li class="cpoyright-item">
-								Privacy & Cookies
-							</li>
-							|
-							<li class="cpoyright-item">
-								Ts&Cs
-							</li>
-							|
-							<li class="cpoyright-item">
-								Accessibility
-							</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</section>
 {% endblock  %}
+
+{% block footer %}
+	{% show_footer %}
+{% endblock %}

@@ -4,7 +4,7 @@ from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView, ListView, TemplateView
 
@@ -28,7 +28,7 @@ from products.services.update_basket_item_quntity_services import (
 )
 from static.vendor.data.brands import brands_data
 from static.vendor.data.collages import collages_data
-from static.vendor.data.footer import footer_data
+from static.vendor.data.sale import sale_data
 from static.vendor.data.slider import slider_data
 
 from .models import Basket, BasketItem, Product
@@ -44,7 +44,8 @@ class Index(TemplateView):
         "slider_data": slider_data,
         "brands_data": brands_data,
         "collages_data": collages_data,
-        "footer_data": footer_data,
+        # "footer_data": footer_data,
+        "sale_data": sale_data,
     }
 
 
@@ -66,7 +67,6 @@ class ProductListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Dapper"
         context["categories"] = get_all_categories()
         return context
 

@@ -28,17 +28,17 @@
 		<div class="container">
 			<div class="navbar-wrapper">
 				<div class="logo">
-					<a href="/">
+					<a href="{% url 'home_men' %}">
 						<img width="100px" height="100px" src="{% static 'vendor/img/navbar/logo.webp' %}" alt="logo">
 					</a>
 				</div>
 	
 				<div class="gender">
 					<div>
-						<a class="gender-link" href="#">Women</a>
+						<a class="gender-link" href="{% url 'home_men' %}">Man</a>
 					</div>
 					<div>
-						<a class="gender-link" href="#">Man</a>
+						<a class="gender-link" href="{% url 'home_women' %}">Women</a>
 					</div>
 				</div>
 				
@@ -69,7 +69,7 @@
 					<a href="">
 						<img src="{% static 'vendor/img/navbar/like.svg' %}" width="25xp" alt="like">
 					</a>
-					<a href="">
+					<a href="{% url 'products:basket' %}">
 						<img src="{% static 'vendor/img/navbar/cart.svg' %}" width="25xp" alt="cart">
 					</a>
 				</div>

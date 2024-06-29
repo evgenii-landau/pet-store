@@ -95,6 +95,10 @@ input {
 	font-size: 16px;
 }
 
+.category-link:hover {
+	color: #85e5d4;
+}
+
 .nav-icon-section {
 	display: flex;
 	gap: 20px;
