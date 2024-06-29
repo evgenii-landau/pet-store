@@ -90,26 +90,13 @@
 			<div class="container">
 				<div class="collage-wrapper">
 					<ul class="collage-list">
-						<li class="collage-item">
-							<img src="{% static 'vendor/img/collage/sunshine_serves.jpeg' %}" alt="collage_img" class="collage-img">
-							<p class="collage-title">SUNSHINE SERVES</p>
-							<p class="collage-desc">These beach 'fits? Unreal</p>
-						</li>
-						<li class="collage-item">
-							<img src="{% static 'vendor/img/collage/summer_grunge.jpeg' %}" alt="collage_img" class="collage-img">
-							<p class="collage-title">SUMMER GRUNGE</p>
-							<p class="collage-desc">Catch a vibe</p>
-						</li>
-						<li class="collage-item">
-							<img src="{% static 'vendor/img/collage/on.jpeg' %}" alt="collage_img" class="collage-img">
-							<p class="collage-title">ON</p>
-							<p class="collage-desc">Sneaker game: on point</p>
-						</li>
-						<li class="collage-item">
-							<img src="{% static 'vendor/img/collage/city_boy_serves.jpeg' %}" alt="collage_img" class="collage-img">
-							<p class="collage-title">CITY-BOY SERVES</p>
-							<p class="collage-desc">In the streets</p>
-						</li>
+						{% for collage in collages_data %}
+							<li class="collage-item">
+								<img src="{% static collage.img %}" alt="collage_img" class="collage-img">
+								<p class="collage-title">{{ collage.title }}</p>
+								<p class="collage-desc">{{ collage.desc }}</p>
+							</li>
+						{% endfor %}
 					</ul>
 				</div>
 			</div>
@@ -117,92 +104,94 @@
 
 		<section class="slider">
 			<div class="slider-container">
+				<h2>Your most hyped</h2>
 				<ul class="slider-list" id="slider">
+					{% for slider in slider_data %}
 					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-1.webp' %}" alt="Product 1">
-						<h3>Product 1</h3>
-						<p>$10.00</p>
+						<img src="{% static slider.img %}" alt="Product 1">
+						<h3>{{ slider.title }}</h3>
+						<p>{{ slider.price }}</p>
 					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-2.webp' %}" alt="Product 2">
-						<h3>Product 2</h3>
-						<p>$20.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-3.webp' %}" alt="Product 3">
-						<h3>Product 3</h3>
-						<p>$30.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-4.webp' %}" alt="Product 4">
-						<h3>Product 4</h3>
-						<p>$40.00</p>
-					</li>
-					<!-- Slide 2 -->
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-5.webp' %}" alt="Product 5">
-						<h3>Product 5</h3>
-						<p>$50.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-6.webp' %}" alt="Product 6">
-						<h3>Product 6</h3>
-						<p>$60.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-7.webp' %}" alt="Product 7">
-						<h3>Product 7</h3>
-						<p>$70.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-8.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-9.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-10.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-11.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-12.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-13.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-14.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-15.webp' %}" alt="Product 8">
-						<h3>Product 8</h3>
-						<p>$80.00</p>
-					</li>
-					<li class="slide">
-						<img src="{% static 'vendor/img/slider/slider-1.webp' %}" alt="Product 1">
-						<h3>Product 1</h3>
-						<p>$10.00</p>
-					</li>
+					{% endfor %}
 				</ul>
 				<button class="prev" onclick="prevSlide()">&#10094;</button>
 				<button class="next" onclick="nextSlide()">&#10095;</button>
 			</div>
 			<div class="pagination" id="pagination"></div>
+		</section>
+
+		<section class="brands">
+			<div class="container">
+				<div class="brands-wrapper">
+					<h2>TRENDING BRANDS</h2>
+					<ul class="barnds-list">
+						{% for brand in brands_data %}
+							<li class="brands-link"><img src="{% static brand.img %}" alt="brand" class="brands-img"></li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="footer">
+			<div class="container">
+				<div class="footer-wrapper">
+					<div class="footer-column-1">
+						<h4>Help & Information</h4>
+						<ul class="footer-list">
+							{% for item in footer_data.help_information %}
+								<li class="footer-item">{{ item }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="footer-column-2">
+						<h4>About Suer Street</h4>
+						<ul class="footer-list">
+							{% for item in footer_data.about %}
+								<li class="footer-item">{{ item }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="footer-column-3">
+						<h4>More From Super Street</h4>
+						<ul class="footer-list">
+							{% for item in footer_data.more %}
+								<li class="footer-item">{{ item }}</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="copyright">
+			<div class="container">
+				<div class="copytirght-wrapper">
+					<div>
+						<p>
+							© 2024 Super Street
+						</p>
+					</div>
+					<div>
+						<ul class="copyrirght-list">
+							<li class="cpoyright-item">
+								Super Street details
+							</li>
+							|
+							<li class="cpoyright-item">
+								Privacy & Cookies
+							</li>
+							|
+							<li class="cpoyright-item">
+								Ts&Cs
+							</li>
+							|
+							<li class="cpoyright-item">
+								Accessibility
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
 		</section>
 {% endblock  %}

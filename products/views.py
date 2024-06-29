@@ -26,6 +26,10 @@ from products.services.services import get_basket_item_by_id
 from products.services.update_basket_item_quntity_services import (
     update_basket_item_quantity,
 )
+from static.vendor.data.brands import brands_data
+from static.vendor.data.collages import collages_data
+from static.vendor.data.footer import footer_data
+from static.vendor.data.slider import slider_data
 
 from .models import Basket, BasketItem, Product
 
@@ -34,7 +38,14 @@ class Index(TemplateView):
     """Отображение главной страницы"""
 
     template_name = "products/index.html"
-    extra_context = {"title": "Dapper", "categories": get_all_categories()}
+    extra_context = {
+        "title": "Dapper",
+        "categories": get_all_categories(),
+        "slider_data": slider_data,
+        "brands_data": brands_data,
+        "collages_data": collages_data,
+        "footer_data": footer_data,
+    }
 
 
 class ProductListView(ListView):

@@ -385,6 +385,10 @@ input {
 	overflow: hidden;
 }
 
+.slider-container > h2 {
+	text-align: center;
+}
+
 .slider-list {
 	display: flex;
 	transition: transform 0.5s ease-in-out;
@@ -447,3 +451,59 @@ input {
 	background-color: #717171;
 }
 /* slider section end */
+
+/* brands section */
+.brands-wrapper > h2 {
+	text-align: center;
+}
+
+.barnds-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.brands-img {
+	max-width: 192px;
+}
+/* brands section end */
+
+/* footer  */
+.footer {
+	background-color: #eee;
+}
+.footer-wrapper {
+	padding: 20px 0px;
+	display: flex;
+	justify-content: space-between;
+}
+.footer-column-1 > h4,
+.footer-column-2 > h4,
+.footer-column-3 > h4 {
+	text-transform: uppercase;
+}
+.footer-list {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+.footer-item {
+	font-weight: 300;
+}
+/* footer end */
+
+/* copyright */
+.copyright {
+	padding: 20px 0px;
+	background-color: #ddd;
+}
+.copytirght-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 300;
+}
+.copyrirght-list {
+	display: flex;
+	gap: 20px;
+}
+/* copytirght end */
