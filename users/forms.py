@@ -28,45 +28,45 @@ class UserLoginForm(AuthenticationForm):
 class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите имя"}
+            attrs={"class": "login-form-input", "placeholder": "Enter name"}
         ),
-        label="Имя",
+        label="Name",
     )
     last_name = forms.CharField(
         widget=forms.TextInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите фамилию"}
+            attrs={"class": "login-form-input", "placeholder": "Enter surname"}
         ),
-        label="Фамилия",
+        label="Surname",
     )
     username = forms.CharField(
         widget=forms.TextInput(
             attrs={
-                "class": "form-control py-4",
-                "placeholder": "Введите имя пользователя",
+                "class": "login-form-input",
+                "placeholder": "Enter username",
             }
         ),
-        label="Имя пользователя",
+        label="Username",
     )
     email = forms.CharField(
         widget=forms.EmailInput(
             attrs={
-                "class": "form-control py-4",
-                "placeholder": "Введите адрес эл. почты",
+                "class": "login-form-input",
+                "placeholder": "Enter E-mail",
             }
         ),
         label="E-mail",
     )
     password1 = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите пароль"}
+            attrs={"class": "login-form-input", "placeholder": "Enter password"}
         ),
-        label="Пароль",
+        label="Password",
     )
     password2 = forms.CharField(
         widget=forms.PasswordInput(
-            attrs={"class": "form-control py-4", "placeholder": "Подтвердите пароль"}
+            attrs={"class": "login-form-input", "placeholder": "Repeat password"}
         ),
-        label="Подтверждение пароля",
+        label="Repeat password",
     )
 
     class Meta:

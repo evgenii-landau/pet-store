@@ -1,6 +1,8 @@
 {% extends "users/base.html" %}
 
 
+
+
 {% block content %}
 	<main>
 		<div class="login">
@@ -14,15 +16,15 @@
 				</div>
 			</div>
 			<div class="form-wrapper">
-				<form class="login-form" action="{% url 'users:login' %}" method="post">
+				<form class="login-form" action="{% url 'users:register' %}" method="post">
 					{% csrf_token %}
 					{{ form.non_field_errors }}
 					{% for field in form %}
 						<label class="login-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
 						{{ field }}
-						{{ filed.errors }}
+						{{ field.errors }}
 					{% endfor %}
-					<button class="form-button" type="submit">Sign In</button>
+					<button class="form-button" type="submit">Join Super Street</button>
 				</form>
 			</div>
 		</div>

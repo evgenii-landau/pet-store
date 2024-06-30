@@ -54,7 +54,6 @@ main {
 .login {
 	background: #fff;
 	width: 650px;
-	height: 800px;
 }
 
 .login-options {
@@ -115,7 +114,9 @@ main {
 	opacity: 0.7;
 }
 
-.errorlist.nonfield {
+.errorlist.nonfield,
+.errorlist {
 	color: red;
 	font-size: 18px;
 }
+`

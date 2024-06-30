@@ -20,7 +20,6 @@
 					{% for field in form %}
 						<label class="login-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
 						{{ field }}
-						{{ filed.errors }}
 					{% endfor %}
 					<button class="form-button" type="submit">Sign In</button>
 				</form>
