@@ -4,7 +4,7 @@ from django.db.models.base import Model as Model
 from django.db.models.query import QuerySet
 from django.http import JsonResponse
 from django.shortcuts import redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import resolve, reverse, reverse_lazy
 from django.views import View
 from django.views.generic import DeleteView, ListView, TemplateView
 
@@ -22,7 +22,7 @@ from products.services.product_list_services import (
     get_all_categories,
     get_products_by_category_slug,
 )
-from products.services.services import get_basket_item_by_id
+from products.services.services import get_basket_item_by_id, get_current_gender
 from products.services.update_basket_item_quntity_services import (
     update_basket_item_quantity,
 )
@@ -39,14 +39,18 @@ class Index(TemplateView):
 
     template_name = "products/index.html"
     extra_context = {
-        "title": "Dapper",
         "categories": get_all_categories(),
         "slider_data": slider_data,
         "brands_data": brands_data,
         "collages_data": collages_data,
-        # "footer_data": footer_data,
         "sale_data": sale_data,
     }
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        resolved_path = resolve(self.request.path)
+        context["current_gender"] = get_current_gender(resolved_path)
+        return context
 
 
 class ProductListView(ListView):
@@ -60,10 +64,13 @@ class ProductListView(ListView):
     template_name = "products/products.html"
     context_object_name = "products"
     slug_url_kwargs = "category_slug"
+    paginate_by = 12
 
     def get_queryset(self):
         category_slug = self.kwargs.get(self.slug_url_kwargs)
-        return get_products_by_category_slug(category_slug)
+        resolved_path = resolve(self.request.path)
+        current_gender = get_current_gender(resolved_path)
+        return get_products_by_category_slug(category_slug, current_gender)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -113,7 +120,7 @@ class AddBasketView(LoginRequiredMixin, View):
             basket_item.quantity += 1
             basket_item.save()
 
-        return redirect("products:products")
+        return redirect(request.META.get("HTTP_REFERER"))
 
 
 class UpdateBasketItemQuantityView(LoginRequiredMixin, View):

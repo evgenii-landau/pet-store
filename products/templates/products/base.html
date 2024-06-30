@@ -26,17 +26,17 @@
 		<div class="container">
 			<div class="navbar-wrapper">
 				<div class="logo">
-					<a href="{% url 'home_men' %}">
+					<a href="{% url 'men:home' %}">
 						<img width="100px" height="100px" src="{% static 'vendor/img/navbar/logo.webp' %}" alt="logo">
 					</a>
 				</div>
 	
 				<div class="gender">
 					<div>
-						<a class="gender-link" href="{% url 'home_men' %}">Man</a>
+						<a class="gender-link" href="{% url 'men:home' %}">Men</a>
 					</div>
 					<div>
-						<a class="gender-link" href="{% url 'home_women' %}">Women</a>
+						<a class="gender-link" href="{% url 'women:home' %}">Women</a>
 					</div>
 				</div>
 				
@@ -71,7 +71,7 @@
 					<a href="">
 						<img src="{% static 'vendor/img/navbar/like.svg' %}" width="25xp" alt="like">
 					</a>
-					<a href="{% url 'products:basket' %}">
+					<a href="{% url 'basket' %}">
 						<img src="{% static 'vendor/img/navbar/cart.svg' %}" width="25xp" alt="cart">
 					</a>
 				</div>
@@ -83,7 +83,11 @@
 	<div class="categories">
 		<ul class="categories-list">
 			{% for category in categories %}
-				<a class="category-link" href="{% url 'products:products' category.slug %}" class="categories-item">{{ category.name }}</a>
+				{% if current_gender == "men" %}
+					<a class="category-link" href="{% url 'men:product_list' category.slug %}" class="categories-item">{{ category.name }}</a>
+				{% elif current_gender == "women" %}
+					<a class="category-link" href="{% url 'women:product_list' category.slug %}" class="categories-item">{{ category.name }}</a>
+				{% endif %}
 			{% endfor %}
 		</ul>
 	</div>

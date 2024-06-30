@@ -1,3 +1,10 @@
+button {
+	border: none;
+	outline: none;
+	background: #fff;
+	font-size: 16px;
+}
+
 .products {
 	padding: 40px 0px;
 }
