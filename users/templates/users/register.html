@@ -3,49 +3,75 @@
 
 {% block content %}
 	<main>
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-lg-7">
-					{% if form.errors %}
-						<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 50px;">
-							{% for field, errors in form.errors.items %}
-								{% for error in errors %}
-									{{ error }}
-								{% endfor %}
-							{% endfor %}
-							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-					{% endif %}
-					<div class="card shadow-lg border-0 rounded-lg mt-5">
-						<div class="card-header"><h3 class="text-center font-weight-light my-4">Создать аккаунт</h3>
-						</div>
-						<div class="card-body">
-							<form action="{% url "users:register" %}" method="post">
-								{% csrf_token %}
-								<div class="form-row">
-									{{ form.non_field_errors }}
-									{% for field in form %}
-									<div class="col-md-6">
-										<div class="form-group">
-											<label class="small mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
-											{{ field }}
-										</div>
-									</div>
-									{% endfor %}
-								</div>
-								<div class="form-group mt-4 mb-0">
-									<input class="btn btn-primary btn-block" type="submit" value="Создать аккаунт">
-								</div>
-							</form>
-						</div>
-						<div class="card-footer text-center">
-							<div class="small"><a href="{% url "users:login" %}">Уже есть аккаунт? Авторизоваться</a></div>
-						</div>
-					</div>
+		<div class="login">
+			<div class=login-options>
+				<div>
+					<a href="{% url 'users:register' %}">JOIN</a>
 				</div>
+				|
+				<div>
+					<a href="{% url 'users:login' %}">SIGN IN</a>
+				</div>
+			</div>
+			<div class="form-wrapper">
+				<form class="login-form" action="{% url 'users:login' %}" method="post">
+					{% csrf_token %}
+					{{ form.non_field_errors }}
+					{% for field in form %}
+						<label class="login-form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+						{{ field }}
+						{{ filed.errors }}
+					{% endfor %}
+					<button class="form-button" type="submit">Sign In</button>
+				</form>
 			</div>
 		</div>
 	</main>
 {% endblock  %}
+
+{% comment %} <main>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-lg-7">
+				{% if form.errors %}
+					<div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 50px;">
+						{% for field, errors in form.errors.items %}
+							{% for error in errors %}
+								{{ error }}
+							{% endfor %}
+						{% endfor %}
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+				{% endif %}
+				<div class="card shadow-lg border-0 rounded-lg mt-5">
+					<div class="card-header"><h3 class="text-center font-weight-light my-4">Создать аккаунт</h3>
+					</div>
+					<div class="card-body">
+						<form action="{% url "users:register" %}" method="post">
+							{% csrf_token %}
+							<div class="form-row">
+								{{ form.non_field_errors }}
+								{% for field in form %}
+								<div class="col-md-6">
+									<div class="form-group">
+										<label class="small mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
+										{{ field }}
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+							<div class="form-group mt-4 mb-0">
+								<input class="btn btn-primary btn-block" type="submit" value="Создать аккаунт">
+							</div>
+						</form>
+					</div>
+					<div class="card-footer text-center">
+						<div class="small"><a href="{% url "users:login" %}">Уже есть аккаунт? Авторизоваться</a></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</main> {% endcomment %}

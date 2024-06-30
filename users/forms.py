@@ -9,18 +9,18 @@ from django.contrib.auth.forms import (
 
 class UserLoginForm(AuthenticationForm):
     username = forms.CharField(
-        label="Логин",
+        label="Login",
         widget=forms.TextInput(
             attrs={
-                "class": "form-control py-4",
-                "placeholder": "Введите имя пользователя",
+                "class": "login-form-input",
+                "placeholder": "Enter username",
             },
         ),
     )
     password = forms.CharField(
-        label="Пароль",
+        label="Password",
         widget=forms.PasswordInput(
-            attrs={"class": "form-control py-4", "placeholder": "Введите пароль"}
+            attrs={"class": "login-form-input", "placeholder": "Enter password"}
         ),
     )
 
