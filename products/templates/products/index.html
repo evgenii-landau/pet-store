@@ -52,14 +52,6 @@
 						{% else %}
 							<p>No items found.</p>
 						{% endif %}
-						{% comment %} {% for item in {% if get_absolute_url.include("men") %} sale_data.men {% endif %} %}
-							<li class="sale-link">
-								<img src="{% static item.img %}" alt="bestseller">
-								<a href="#" class="name-sale-link">
-									{{ item.title }}
-								</a>
-							</li>
-						{% endfor %} {% endcomment %}
 					</ul>
 					<a class="sale-btn" href="#">
 						<span class="top-key"></span>
@@ -130,4 +122,5 @@
 
 {% block footer %}
 	{% show_footer %}
+	{% show_copyright %}
 {% endblock %}

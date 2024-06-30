@@ -1,3 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
+html,
+body {
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+	font-family: "Josefin Sans", sans-serif;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+	-o-background-size: cover;
+}
+
+.container {
+	margin: 0 auto;
+	max-width: 1400px;
+}
+
+p {
+	margin: 0px;
+}
+
+a {
+	border: none;
+	outline: none;
+	text-decoration: none;
+	color: #fff;
+}
+
+button {
+	border: none;
+	outline: none;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+input {
+	outline: none;
+}
+
 /* nav-bar  */
 .navbar {
 	padding: 0px 30px;
@@ -56,7 +104,6 @@
 }
 
 .popup-button {
-	padding: 10px 20px;
 	font-size: 16px;
 	cursor: pointer;
 }
@@ -73,8 +120,8 @@
 	width: 200px;
 	border-radius: 5px;
 	z-index: 10;
-	top: 45px;
-	left: -155px;
+	top: 40px;
+	left: -173px;
 	background-color: #2d2d2d;
 	color: #fff;
 }
@@ -115,3 +162,44 @@
 	gap: 20px;
 }
 /* popup end */
+
+/* footer  */
+.footer {
+	background-color: #eee;
+}
+.footer-wrapper {
+	padding: 20px 0px;
+	display: flex;
+	justify-content: space-between;
+}
+.footer-column-1 > h4,
+.footer-column-2 > h4,
+.footer-column-3 > h4 {
+	text-transform: uppercase;
+}
+.footer-list {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+}
+.footer-item {
+	font-weight: 300;
+}
+/* footer end */
+
+/* copyright */
+.copyright {
+	padding: 20px 0px;
+	background-color: #ddd;
+}
+.copytirght-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	font-weight: 300;
+}
+.copyrirght-list {
+	display: flex;
+	gap: 20px;
+}
+/* copytirght end */

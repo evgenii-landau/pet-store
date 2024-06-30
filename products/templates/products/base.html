@@ -17,7 +17,6 @@
 	<link rel="stylesheet" href="{% static 'vendor/css/base.css' %}">
 	<link rel="stylesheet" href="{% static 'vendor/css/drop-down.css' %}">
 	<link rel="stylesheet" href="{% static 'vendor/css/search.css' %}">
-	<link rel="stylesheet" href="{% static 'vendor/css/index.css' %}">
 	{% block css %}{% endblock %}
 
 </head>
@@ -49,21 +48,6 @@
 				<!--End Search-->
 	
 				<div class="nav-icon-section">
-					{% comment %} <div class="drop-down-prodfile">
-						<div class="paste-button">
-							<a href="{% url 'users:profile' %}">
-								<img src="{% static 'vendor/img/navbar/profile.svg' %}" width="25xp" alt="profile">
-							</a>
-							<div class="dropdown-content">
-								<div class="drop-down">
-									<a id="top" href="#">Sign In</a>
-									<a id="middle" href="#">Join</a>
-								</div>
-								<a href="#">My Account</a>
-								<a href="#">My Order</a>
-							</div>
-						</div>
-					</div>  {% endcomment %}
 
 					<!--PopUp-->
 					<div class="popup">
@@ -81,6 +65,62 @@
 							</ul>
 						</div>
 					</div>
+
+					<!--PopUp End-->
+	
+					<a href="">
+						<img src="{% static 'vendor/img/navbar/like.svg' %}" width="25xp" alt="like">
+					</a>
+					<a href="{% url 'products:basket' %}">
+						<img src="{% static 'vendor/img/navbar/cart.svg' %}" width="25xp" alt="cart">
+					</a>
+				</div>
+	
+			</div>
+		</div>
+	</nav>
+
+	<div class="categories">
+		<ul class="categories-list">
+			{% for category in categories %}
+				<a class="category-link" href="{% url 'products:products' category.slug %}" class="categories-item">{{ category.name }}</a>
+			{% endfor %}
+		</ul>
+	</div>
+
+
+
+	{% block content %}{% endblock  %}
+	{% block footer %}{% endblock %}
+
+<!-- Time for success messages -->
+<script src="{% static 'vendor/js/time.js' %}"></script>
+<!-- DropDown -->
+<script src="{% static 'vendor/js/drop-down.js' %}"></script>
+<!-- Slider -->
+<script src="{% static 'vendor/js/slider.js' %}"></script>
+<!-- Popup -->
+<script src="{% static 'vendor/js/popup.js' %}"></script>
+</body>
+
+</html>
+
+					{% comment %} <div class="drop-down-prodfile">
+						<div class="paste-button">
+							<a href="{% url 'users:profile' %}">
+								<img src="{% static 'vendor/img/navbar/profile.svg' %}" width="25xp" alt="profile">
+							</a>
+							<div class="dropdown-content">
+								<div class="drop-down">
+									<a id="top" href="#">Sign In</a>
+									<a id="middle" href="#">Join</a>
+								</div>
+								<a href="#">My Account</a>
+								<a href="#">My Order</a>
+							</div>
+						</div>
+					</div>  {% endcomment %}
+
 					{% comment %} <div class="popup">
 						<div class="burger">
 							<img src="{% static 'vendor/img/navbar/profile.svg' %}" width="25xp" alt="profile">
@@ -97,17 +137,8 @@
 							</ul>
 						</div>
 					</div> {% endcomment %}
-					<!--PopUp End-->
 
-	
-					<a href="">
-						<img src="{% static 'vendor/img/navbar/like.svg' %}" width="25xp" alt="like">
-					</a>
-					<a href="{% url 'products:basket' %}">
-						<img src="{% static 'vendor/img/navbar/cart.svg' %}" width="25xp" alt="cart">
-					</a>
-				</div>
-	
+
 				{% comment %} <div class="">
 					<ul class="">
 						<li class="nav-item">
@@ -161,18 +192,6 @@
 						{% endif %}
 					</ul>
 				</div> {% endcomment %}
-			</div>
-		</div>
-	</nav>
-
-	<div class="categories">
-		<ul class="categories-list">
-			{% for category in categories %}
-				<a class="category-link" href="{% url 'products:products' category.slug %}" class="categories-item">{{ category.name }}</a>
-			{% endfor %}
-		</ul>
-	</div>
-
 
 
 	{% comment %} <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
@@ -269,18 +288,3 @@
 			</div>
 		</div>
 	</nav> {% endcomment %}
-
-	{% block content %}{% endblock  %}
-	{% block footer %}{% endblock %}
-
-<!-- Time for success messages -->
-<script src="{% static 'vendor/js/time.js' %}"></script>
-<!-- DropDown -->
-<script src="{% static 'vendor/js/drop-down.js' %}"></script>
-<!-- Slider -->
-<script src="{% static 'vendor/js/slider.js' %}"></script>
-<!-- Popup -->
-<script src="{% static 'vendor/js/popup.js' %}"></script>
-</body>
-
-</html>
