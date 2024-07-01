@@ -17,7 +17,7 @@ body {
 
 .container {
 	margin: 0 auto;
-	max-width: 1400px;
+	max-width: 1500px;
 }
 
 p {
@@ -58,17 +58,67 @@ input {
 }
 
 .logo {
-	margin-right: 30px;
+	margin-right: 40px;
+	width: 100px;
+}
+
+.logo-img {
+	width: 100%;
 }
 
 .gender {
 	display: flex;
-	gap: 20px;
 }
 
-.gender-link {
-	font-size: 20px;
+.gender-men,
+.gender-women {
+	position: relative;
+	padding: 42px;
 	font-weight: 600;
+	font-size: 20px;
+	background-color: transparent;
+}
+
+.gender-men::before,
+.gender-women::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #525050;
+	opacity: 0;
+	transition: opacity 0.3s;
+	z-index: -1;
+}
+
+.gender-men:hover::before,
+.gender-women:hover::before {
+	opacity: 0.9;
+}
+
+.gender-men,
+.gender-women {
+	position: relative;
+	z-index: 1;
+}
+
+.gender-men.active-category,
+.gender-women.active-category {
+	background-color: #525050;
+}
+
+.gender-men.active-category::before,
+.gender-women.active-category::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #525050;
+	z-index: -1;
 }
 
 .categories {

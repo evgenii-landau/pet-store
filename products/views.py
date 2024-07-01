@@ -26,10 +26,13 @@ from products.services.services import get_basket_item_by_id, get_current_gender
 from products.services.update_basket_item_quntity_services import (
     update_basket_item_quantity,
 )
-from static.vendor.data.brands import brands_data
-from static.vendor.data.collages import collages_data
-from static.vendor.data.sale import sale_data
-from static.vendor.data.slider import slider_data
+from static.vendor.data.static_data import (
+    brands_data,
+    collage_data,
+    hero_data,
+    sale_data,
+    slider_data,
+)
 
 from .models import Basket, BasketItem, Product
 
@@ -40,10 +43,11 @@ class Index(TemplateView):
     template_name = "products/index.html"
     extra_context = {
         "categories": get_all_categories(),
+        "sale_data": sale_data,
+        "hero_data": hero_data,
         "slider_data": slider_data,
         "brands_data": brands_data,
-        "collages_data": collages_data,
-        "sale_data": sale_data,
+        "collage_data": collage_data,
     }
 
     def get_context_data(self, **kwargs):

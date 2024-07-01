@@ -294,12 +294,15 @@
 .slide {
 	min-width: 25%;
 	box-sizing: border-box;
-	text-align: center;
 }
 
 .slide img {
 	width: 100%;
 	height: auto;
+}
+
+.slide p {
+	font-size: 18px;
 }
 
 .prev,
@@ -330,7 +333,7 @@
 
 .pagination {
 	text-align: center;
-	padding: 10px 0;
+	padding: 40px 0px 10px 0px;
 }
 
 .pagination .dot {
@@ -363,5 +366,3 @@
 	max-width: 192px;
 }
 /* brands section end */
-
-

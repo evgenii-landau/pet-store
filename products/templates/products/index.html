@@ -31,7 +31,7 @@
 			<div class="container">
 				<div class="sale-wrapper">
 					<ul class="sale-list">
-						{% if "men" in current_url %}
+						{% if current_gender == "men" %}
 							{% for item in sale_data.men %}
 								<li class="sale-link">
 									<img src="{% static item.img %}" alt="bestseller">
@@ -40,7 +40,7 @@
 									</a>
 								</li>
 							{% endfor %}
-						{% elif "women" in current_url %}
+						{% elif current_gender == "women" %}
 							{% for item in sale_data.women %}
 								<li class="sale-link">
 									<img src="{% static item.img %}" alt="bestseller">
@@ -66,8 +66,13 @@
 		<section class="hero">
 			<div class="container">
 				<div class="hero-wrapper">
-					<img src="{% static 'vendor/img/hero.avif' %}" alt="hero">
-					<p>Shop linen looks</p>
+					{% if current_gender == "men" %}	
+							<img src="{% static hero_data.men.img %}" alt="hero">
+							<p>{{ hero_data.men.text }}</p>
+					{% else %}
+							<img src="{% static hero_data.women.img %}" alt="hero">
+							<p>{{ hero_data.women.text }}</p>
+					{% endif %}
 				</div>
 			</div>
 		</section>
@@ -76,13 +81,25 @@
 			<div class="container">
 				<div class="collage-wrapper">
 					<ul class="collage-list">
-						{% for collage in collages_data %}
-							<li class="collage-item">
-								<img src="{% static collage.img %}" alt="collage_img" class="collage-img">
-								<p class="collage-title">{{ collage.title }}</p>
-								<p class="collage-desc">{{ collage.desc }}</p>
-							</li>
-						{% endfor %}
+
+						
+						{% if current_gender == "men" %}
+							{% for item in collage_data.men %}
+								<li class="collage-item">
+									<img src="{% static item.img %}" alt="collage_img" class="collage-img">
+									<p class="collage-title">{{ item.title }}</p>
+									<p class="collage-desc">{{ item.desc }}</p>
+								</li>
+							{% endfor %}
+						{% else %}
+							{% for item in collage_data.women %}
+								<li class="collage-item">
+									<img src="{% static item.img %}" alt="collage_img" class="collage-img">
+									<p class="collage-title">{{ item.title }}</p>
+									<p class="collage-desc">{{ item.desc }}</p>
+								</li>
+							{% endfor %}
+						{% endif %}
 					</ul>
 				</div>
 			</div>
@@ -92,13 +109,25 @@
 			<div class="slider-container">
 				<h2>Your most hyped</h2>
 				<ul class="slider-list" id="slider">
-					{% for slider in slider_data %}
-					<li class="slide">
-						<img src="{% static slider.img %}" alt="Product 1">
-						<h3>{{ slider.title }}</h3>
-						<p>{{ slider.price }}</p>
-					</li>
-					{% endfor %}
+
+					
+					{% if current_gender == "men" %}
+						{% for item in slider_data.men %}
+							<li class="slide">
+								<img src="{% static item.img %}" alt="Product 1">
+								<h3>{{ item.title }}</h3>
+								<p>$ {{ item.price }}</p>
+							</li>
+						{% endfor %}
+					{% else %}
+						{% for item in slider_data.women %}
+							<li class="slide">
+								<img src="{% static item.img %}" alt="Product 1">
+								<h3>{{ item.title }}</h3>
+								<p>$ {{ item.price }}</p>
+							</li>
+						{% endfor %}
+					{% endif %}
 				</ul>
 				<button class="prev" onclick="prevSlide()">&#10094;</button>
 				<button class="next" onclick="nextSlide()">&#10095;</button>
@@ -111,9 +140,15 @@
 				<div class="brands-wrapper">
 					<h2>TRENDING BRANDS</h2>
 					<ul class="barnds-list">
-						{% for brand in brands_data %}
-							<li class="brands-link"><img src="{% static brand.img %}" alt="brand" class="brands-img"></li>
-						{% endfor %}
+						{% if current_gender == "men" %}
+							{% for item in brands_data.men %}
+								<li class="brands-link"><img src="{% static item.img %}" alt="brand" class="brands-img"></li>
+							{% endfor %}
+						{% else %}
+							{% for item in brands_data.women %}
+								<li class="brands-link"><img src="{% static item.img %}" alt="brand" class="brands-img"></li>
+							{% endfor %}
+						{% endif %}
 					</ul>
 				</div>
 			</div>
