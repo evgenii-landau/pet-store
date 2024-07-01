@@ -1,0 +1,64 @@
+.basket-top-section {
+	display: flex;
+	flex-direction: column;
+	padding: 20px 0px;
+}
+.basket-count,
+.basket-total-price {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.basket-count > p,
+.basket-total-price > p {
+	font-size: 24px;
+}
+
+.basket-count {
+	border-bottom: 2px solid #000;
+}
+
+.basket-top-section > h4 {
+	margin-right: 20px;
+}
+
+.basket-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 65px;
+}
+
+.basket-item {
+	max-width: 300px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	font-size: 18px;
+	gap: 20px;
+}
+
+.basket-item-img {
+	width: 100%;
+}
+
+.basket-item-quantity,
+.basket-item-price {
+	display: flex;
+	justify-content: space-between;
+}
+
+.button-wrapper {
+	align-self: flex-end;
+}
+
+.basket-delete-btn {
+	border: none;
+	background: grey;
+	padding: 10px 15px;
+	font-size: 16px;
+}
+
+.basket-delete-btn:hover {
+	opacity: 0.7;
+}

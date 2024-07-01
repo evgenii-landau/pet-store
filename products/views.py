@@ -149,7 +149,7 @@ class DeleteBasketItem(LoginRequiredMixin, DeleteView):
     """
 
     model = BasketItem
-    success_url = reverse_lazy("products:basket")
+    success_url = reverse_lazy("basket")
 
     def get_object(self, queryset=None):
         basket_item_id = self.kwargs["pk"]

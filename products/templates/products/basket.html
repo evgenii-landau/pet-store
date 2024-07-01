@@ -1,123 +1,57 @@
 {% extends "products/base.html" %}
+{% load static %}
 
+{% block css %}
+	<link rel="stylesheet" href="{% static 'vendor/css/basket.css' %}">
+{% endblock  %}
 
 {% block content %}
-	<main>
+
+<main>
+	<div class="container">
 		
-	</main>
+		{% if basket_items %}
+			<div class="basket-top-section">
+				<div class="basket-count">
+					<h2>Count items: </h2>
+					<p><b>{{ count_items }}</b></p>
+				</div>
+				<div class="basket-total-price">
+					<h2>Total price:</h2>
+					<p><b>{{ total_price }}</b>$</p>
+				</div>
+			</div>
+			<div class="basket">
+				<ul class="basket-list">
+					{% for item in basket_items %}
+						<li class="basket-item">
+							<div>
+								<img class="basket-item-img" src="{{ item.product.image.url }}" alt="cart-image">
+							</div>
+							<p>{{ item.product.name }}</p>
+							<div class="basket-item-quantity">
+								<p>Quintity:</p>
+								<p>{{ item.quantity }}</p>
+							</div>
+							<div class="basket-item-price">
+								<p>Price:</p>
+								<p>{{ item.get_sum_price_items }}</p>
+							</div>	
+							<div class="button-wrapper">
+								<form action="{% url 'delete_basket_item' item.pk %}" method="post">
+									{% csrf_token %}
+									<button class="basket-delete-btn">Remove from cart</button>
+								</form>
+							</div>
+						</li>
+					{% endfor %}
+				</ul>
+			</div>
+		{% else %}
+			<h1>Your cart is empty </h1>
+		{% endif %}
+	</div>
+</main>
 
 {% endblock %}
-
-
-{% comment %} <div class="col-lg-5" style="margin: 0 auto; padding-top: 100px;">
-    {% if messages %}
-        <div class="mt-3 position-fixed" style="z-index: 1050; top: 20px; right: 20px; width: 300px;">
-            {% for message in messages %}
-                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% else %}alert-info{% endif %} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-    {% if basket_items %}
-        <h4 class="mt-3 mb-3 d-flex justify-content-between align-items-center mb-3">
-            Корзина <span class="badge badge-secondary badge-pill">Количество товаров: {{ count_items }}</span>
-        </h4>
-        {% for basket_item in basket_items %}
-            <div class="card mb-3">
-                <div class="card-body d-flex justify-content-between">
-                    <div style="max-width: 350px">
-                        <h5 class="card-title">{{ basket_item.product.name }}</h5>
-                        <p class="card-text">{{ basket_item.product.description }}</p>
-                    </div>
-                    <div>
-                        <a href="#">
-                            <img class="card-img-top" style="max-width: 300px"
-                                src="{{ basket_item.product.image.url }}"
-                                alt="image of product">
-                        </a>
-                    </div>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item bg-light">
-                        <div class="row text-center d-flex align-items-center">
-                            <form action="{% url 'products:update_basket_item_quantity' %}" method="post">
-                                {% csrf_token %}
-                                <input name="basket_item_id" type="hidden" value="{{ basket_item.pk }}">
-                                <input name="quantity" type="number" class="form-control" value="{{ basket_item.quantity }}" min="0" onchange="this.form.submit()">
-                            </form>
-                            <div class="col-lg-4">{{ basket_item.get_sum_price_items }} руб.</div>
-                            <div class="col-lg-4">
-                                <!-- Кнопка открытия модального окна -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#deleteModal" data-item-id="{{ basket_item.pk }}">
-                                    Удалить из корзины <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        {% endfor %}
-        <div class="card mb-3">
-            <div class="card-footer d-flex justify-content-between align-items-center">
-                <p class="float-left">Итого</p>
-                <h4 class="float-right">{{ total_price }} руб.</h4>
-            </div>
-        </div>
-        <a class="btn btn-success btn-lg float-right" href="../orders/order-create.html">
-            Оформить заказ
-        </a>
-    {% else %}
-        <h4 class="mt-3 mb-3 text-center">
-            Ваша корзина пуста 🙄
-        </h4>
-    {% endif %}
-</div> {% endcomment %}
-
-{% comment %} <!-- Модальное окно -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel">Подтверждение удаления</h5>
-            </div>
-            <div class="modal-body">
-                Вы действительно хотите удалить элемент из корзины?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="confirmDeleteButton">Удалить элемент</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var deleteModal = document.getElementById('deleteModal');
-        var confirmDeleteButton = document.getElementById('confirmDeleteButton');
-        var itemId;
-
-        deleteModal.addEventListener('show.bs.modal', function (event) {
-            var button = event.relatedTarget;
-            itemId = button.getAttribute('data-item-id');
-        });
-
-        confirmDeleteButton.addEventListener('click', function () {
-            fetch(`{% url 'products:delete_basket_item' 0 %}`.replace('0', itemId), {
-                method: 'POST',
-                headers: {
-                    'X-CSRFToken': '{{ csrf_token }}'
-                }
-            })
-            .then(response => {
-                if (response.ok) {
-                    location.reload();
-                } else {
-                    alert('Произошла ошибка при удалении элемента.');
-                }
-            });
-        });
-    });
-</script> {% endcomment %}
 
