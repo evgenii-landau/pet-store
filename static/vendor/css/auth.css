@@ -60,7 +60,7 @@ main {
 	display: flex;
 	align-items: center;
 	justify-content: space-around;
-	padding: 20px 0px;
+	padding-top: 20px;
 	font-size: 20px;
 	font-weight: 700;
 }
@@ -75,10 +75,9 @@ main {
 }
 
 .login-form {
-	margin-top: 40px;
 	display: flex;
 	flex-direction: column;
-	padding: 0px 90px;
+	padding: 40px 90px;
 	gap: 25px;
 }
 
@@ -119,4 +118,3 @@ main {
 	color: red;
 	font-size: 18px;
 }
-`

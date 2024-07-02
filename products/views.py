@@ -78,6 +78,8 @@ class ProductListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        resolved_path = resolve(self.request.path)
+        context["current_gender"] = get_current_gender(resolved_path)
         context["categories"] = get_all_categories()
         return context
 
@@ -165,6 +167,25 @@ class DeleteBasketItem(LoginRequiredMixin, DeleteView):
         basket_item.delete()
         messages.success(request, f"Товар {product_name} был успешно удален из корзины")
         return JsonResponse({"success": True})
+
+
+class SearchListView(LoginRequiredMixin, ListView):
+    model = Product
+    template_name = "products/products.html"
+    context_object_name = "products"
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        text_search = self.request.GET.get("search")
+        queryset = queryset.filter(name__icontains=text_search)
+        return queryset, text_search
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        resolved_path = resolve(self.request.path)
+        context["current_gender"] = get_current_gender(resolved_path)
+        context["products"], context["text_search"] = self.get_queryset()
+        return context
 
 
 # class GenderListView(LoginRequiredMixin, ListView):

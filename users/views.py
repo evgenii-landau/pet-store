@@ -4,7 +4,9 @@ from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
 
-from .forms import UserLoginForm, UserProfileForm, UserRegisterForm
+from static.vendor.data.static_data import profile_data
+
+from .forms import ProfileUpdateForm, UserLoginForm, UserRegisterForm
 
 
 class LoginUser(LoginView):
@@ -15,7 +17,7 @@ class LoginUser(LoginView):
     extra_context = {}
 
     def get_success_url(self):
-        return reverse_lazy("home_men")
+        return reverse_lazy("men:home")
 
 
 class RegisterUser(CreateView):
@@ -34,8 +36,10 @@ class RegisterUser(CreateView):
         return super().form_valid(form)
 
 
-class ProfileView(LoginRequiredMixin, UpdateView):
-    form_class = UserProfileForm
+class ProfileUpdateView(LoginRequiredMixin, UpdateView):
+    """Изменение данных пользователя"""
+
+    form_class = ProfileUpdateForm
     template_name = "users/profile.html"
     success_url = reverse_lazy("users:profile")
 
@@ -44,5 +48,5 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["title"] = "Dapper"
+        context["profile_data"] = profile_data
         return context

@@ -1,5 +1,6 @@
 {% load static %}
 {% load products_tags %}
+{% load users_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,84 +12,67 @@
 	<title>Profile</title>
 </head>
 <body>
-	<div class="wrapper">
+	<main>
 		<div class="profile">
 			<div class="container">
-				<div>
-					<div class="profile-top">
-						<a href="{% url 'men:home' %}">
-							<img class="profile-logo" src="{% static 'vendor/img/navbar/logo.webp' %}" alt="logo">	
-						</a>		
-						<h1>My Account</h1>	
-					</div>
-				</div>
 				<div class="profile-wrapper">
-	
+					
+					<!--left column-->
 					<div class="profile-left-column">
-						<div class="profile-data">
-							<div class="profile-data-wrapper">
-								<div class="profile-data-avatar">
-									<img width="150" height="150"
-									src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'vendor/img/users/default_avatar.jpg' %} {% endif %}"
-									class="img-thumbnail">
-								</div>
-								<div>
-									<p>Hi,</p>
-									<p class="profile-data-username"><b>{{ user.username }}</b></p>
+						<div>
+							<a href="{% url 'men:home' %}">
+								<img class="profile-logo-img" src="{% static 'vendor/img/navbar/logo.webp' %}" alt="logo">	
+							</a>
+						</div>
+
+						<div class="profile-settings">
+							<div class="profile-data">
+								<div class="profile-data-wrapper">
+									<div class="profile-data-avatar">
+										<img width="150" height="150"
+										src="{% if user.image %} {{ user.image.url }} {% else %} {% static 'vendor/img/users/default_avatar.jpg' %} {% endif %}"
+										class="img-thumbnail">
+									</div>
+									<div>
+										<p>Hi,</p>
+										<p class="profile-data-username"><b>{{ user.username }}</b></p>
+									</div>
 								</div>
 							</div>
+			
+							<ul class="profile-list">
+								
+								{% for item in profile_data %}
+									<li class="profile-item">
+										<a class="profile-link" href="{% url item.url %}">
+											<div>
+												<img class="profile-icon" src="{% static item.img %}" alt="profile-icon">
+											</div>
+											<p>{{ item.category }}</p>
+										</a>
+									</li>
+								{% endfor %}
+
+							</ul>
 						</div>
-		
-						<ul class="profile-list">
-							<li class="profile-item">
-								<a class="profile-link" href="">
-									<div>
-										<img src="{% static 'vendor/img/profile/download.svg' %}" alt=""profile-icon>
-									</div>
-									<p>My orders</p>
-								</a>
-							</li>
-							<li class="profile-item">
-								<a class="profile-link" href="">
-									<div>
-										<img src="{% static 'vendor/img/profile/my_details.svg' %}" alt="profile-icon">
-									</div>
-									<p>My details</p>
-								</a>
-							</li>
-							<li class="profile-item">
-								<a class="profile-link" href="">
-									<div>
-										<img src="{% static 'vendor/img/profile/password.svg' %}" alt="profile-icon">
-									</div>
-									<p>Change password</p>
-								</a>
-							</li>
-							<li class="profile-item">
-								<a class="profile-link" href="{% url 'users:logout' %}">
-									<div>
-										<img src="{% static 'vendor/img/profile/sign_out.svg' %}" alt="profile-icon">
-									</div>
-									<p>Sign out</p>
-								</a>
-							</li>
-						</ul>
 					</div>
-	
+					
+					<!-- right column -->
 					<div class="profile-right-column">
-						<div>
-							<img src="{% static 'vendor/img/profile/welcome.svg' %}" alt="welcome-image">
+						<a href="{% url 'users:profile' %}">My Account</a>	
+						<div class=profile-right-bg style="background-image: url('{% static 'vendor/img/profile/welcome.svg' %}')">
+							{% show_details form %}
+							{% comment %} {% show_welcome %} {% endcomment %}
 						</div>
-						<p class="img-desc-1">WELCOME TO</p>
-						<p class="img-desc-2">YOUR ACCOUNT</p>
 					</div>
 				</div>
 			</div>
 		</div>
 		{% show_copyright %}
-	</div>
+	</main>
 </body>
 </html>
+
 
 	
 

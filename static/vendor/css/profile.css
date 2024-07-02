@@ -1,4 +1,4 @@
-.wrapper {
+main {
 	display: flex;
 	flex-direction: column;
 	min-height: 100%;
@@ -9,18 +9,22 @@
 	flex: 1 1 auto;
 }
 
-.profile-top {
-	display: flex;
-	align-items: center;
-}
-
-.profile-top > h1 {
+h1 {
 	text-transform: uppercase;
+	margin: 0;
+	padding: 75px 0px;
 }
 
-.profile-logo {
+.profile-logo-img {
 	width: 200px;
-	margin-right: 50px;
+	height: 180px;
+}
+
+.profile-settings {
+	height: 100%;
+	background-color: #fff;
+	padding: 20px;
+	border: 2px solid;
 }
 
 .profile-wrapper {
@@ -30,10 +34,8 @@
 }
 
 .profile-left-column {
-	padding: 20px;
 	max-width: 350px;
 	width: 100%;
-	background-color: #fff;
 }
 
 .profile-list {
@@ -56,6 +58,10 @@
 	text-decoration: underline;
 }
 
+.profile-icon {
+	width: 20px;
+}
+
 .profile-data {
 	margin-bottom: 40px;
 }
@@ -70,6 +76,8 @@
 	flex-direction: column;
 	gap: 15px;
 	font-size: 18px;
+	max-width: 150px;
+	word-wrap: break-word;
 }
 
 .profile-data-avatar {
@@ -77,6 +85,11 @@
 	right: 40px;
 	border-radius: 50%;
 	overflow: hidden;
+	border: 2px solid #000;
+}
+
+.profile-data-avatar > img {
+	object-fit: cover;
 }
 
 .profile-data-username {
@@ -87,9 +100,27 @@
 	position: relative;
 }
 
+.profile-right-column > a {
+	padding: 75px 0px;
+	display: block;
+
+	font-size: 34px;
+	color: #000;
+	text-transform: uppercase;
+	font-weight: 700;
+}
+
+.profile-right-bg {
+	background-image: url("../vendor/img/profile/welcome.svg");
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
 .profile-right-column > div {
 	width: 620px;
-	height: 755px;
+	height: 800px;
 	overflow: hidden;
 }
 
@@ -107,11 +138,49 @@
 }
 
 .img-desc-1 {
-	top: 40px;
+	top: 210px;
 	left: 40px;
 }
 
 .img-desc-2 {
-	top: 120px;
+	top: 295px;
 	left: 40px;
 }
+
+/* form */
+.profile-form {
+	width: 400px;
+	padding: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+
+	background-color: #fff;
+	font-size: 20px;
+	border: 2px solid #000;
+}
+
+.profile-form > input {
+	padding: 8px;
+	font-size: 16px;
+}
+
+.errorlist {
+	color: red;
+}
+
+.form-btn {
+	padding: 12px;
+	font-size: 16px;
+	font-weight: 700;
+	outline: 2px solid #000;
+	background-color: #000;
+	color: #fff;
+	transition: all 0.2s ease-in;
+}
+
+.form-btn:hover {
+	background-color: #fff;
+	color: #000;
+}
+/* form end */

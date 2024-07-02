@@ -24,8 +24,9 @@ button {
 
 .products-list {
 	display: flex;
+	justify-content: center;
 	flex-wrap: wrap;
-	gap: 45px;
+	gap: 75px;
 }
 
 .product-content > div {
@@ -36,6 +37,11 @@ button {
 
 .product-content > p {
 	margin-bottom: 25px;
+}
+
+.product-not-found {
+	font-size: 20px;
+	padding-top: 150px;
 }
 
 /* add to basket btn */

@@ -15,6 +15,16 @@ body {
 	-o-background-size: cover;
 }
 
+main {
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+}
+
+.wrapper {
+	flex: 1 1 auto;
+}
+
 .container {
 	margin: 0 auto;
 	max-width: 1500px;
@@ -73,7 +83,7 @@ input {
 .gender-men,
 .gender-women {
 	position: relative;
-	padding: 42px;
+	padding: 28px;
 	font-weight: 600;
 	font-size: 20px;
 	background-color: transparent;
@@ -120,6 +130,12 @@ input {
 	background-color: #525050;
 	z-index: -1;
 }
+
+/* search */
+.form-serach {
+	width: 100%;
+}
+/* search  end*/
 
 .categories {
 	padding: 20px 0px;

@@ -244,7 +244,7 @@ slider_data = {
             "price": "26.00",
         },
         {
-            "img": "vendor/img/women/slider/women-11.webp",
+            "img": "vendor/img/women/slider/women-11.jpeg",
             "title": "COLLUSION low rise yoga pant in black",
             "price": "27.00",
         },
@@ -295,3 +295,10 @@ brands_data = {
         {"img": "vendor/img/women/brands/weekday.jpeg"},
     ],
 }
+
+profile_data = [
+    {"category": "My orders", "img": "vendor/img/profile/download.svg", "url": "men:home"},
+    {"category": "My details", "img": "vendor/img/profile/my_details.svg", "url": "men:home"},
+    {"category": "Change password", "img": "vendor/img/profile/password.svg", "url": "men:home"},
+    {"category": "Sign out", "img": "vendor/img/profile/sign_out.svg", "url": "users:logout"},
+]
