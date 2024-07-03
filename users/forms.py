@@ -2,12 +2,16 @@ import re
 
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth.forms import (
+    AuthenticationForm,
+    SetPasswordForm,
+    UserCreationForm,
+)
 
 
 class UserLoginForm(AuthenticationForm):
     """
-    Форма для авторизации пользователя
+    Форма для аутентификации пользователя
     """
 
     username = forms.CharField(
@@ -147,3 +151,11 @@ class ProfileUpdateForm(forms.ModelForm):
         if image and image.size > 5 * 1024 * 1024:  # 5 MB
             raise forms.ValidationError("The image size should not exceed 5 MB.")
         return image
+
+
+class ProfileUpdatePasswordForm(SetPasswordForm):
+    """Форма для обновления пароля пользователя"""
+
+    # class Meta:
+    #     model = get_user_model()
+    #     fields = ["password"]

@@ -297,8 +297,19 @@ brands_data = {
 }
 
 profile_data = [
-    {"category": "My orders", "img": "vendor/img/profile/download.svg", "url": "men:home"},
-    {"category": "My details", "img": "vendor/img/profile/my_details.svg", "url": "men:home"},
-    {"category": "Change password", "img": "vendor/img/profile/password.svg", "url": "men:home"},
-    {"category": "Sign out", "img": "vendor/img/profile/sign_out.svg", "url": "users:logout"},
+    {
+        "category": "My orders",
+        "img": "vendor/img/profile/download.svg",
+        "url": "men:home",
+    },
+    {
+        "category": "My details",
+        "img": "vendor/img/profile/my_details.svg",
+        "url": "users:profile_details",
+    },
+    {
+        "category": "Change password",
+        "img": "vendor/img/profile/password.svg",
+        "url": "users:profile_change_password",
+    },
 ]

@@ -56,6 +56,7 @@ TEMPLATES = [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
                 "products.context_processors.current_url",
+                "products.context_processors.current_category",
             ],
         },
     },
@@ -119,7 +120,7 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 MEDIA_URL = "/media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
-LOGOUT_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "users:login"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
